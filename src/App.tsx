@@ -6,7 +6,10 @@ import {
 
 import { DATA } from './translate';
 import { Theme, Language, TabId, AppConfig } from './type';
-import { HomeSection, ExperienceSection, ProjectsSection, SkillsSection } from './components/sections/Sections';
+import { Home } from './components/sections/Home';
+import { Experience } from './components/sections/Experience';
+import { Projects } from './components/sections/Projects';
+import { Skills } from './components/sections/Skills';
 
 // --- CONFIGURACIÓN DE APPS ---
 // Define el orden y metadatos de las pestañas
@@ -119,7 +122,7 @@ export default function App() {
       </div>
 
       {/* MAIN DESKTOP AREA */}
-      <div className={`relative z-10 h-full flex flex-col items-center justify-center p-4 md:p-6 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+      <div className={`relative z-14 h-full flex flex-col items-center justify-center p-4 md:p-6 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
         
         {/* BROWSER WINDOW */}
         <div className="w-full max-w-6xl h-[85vh] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-white/50 dark:border-slate-700/50 overflow-hidden relative">
@@ -195,10 +198,10 @@ export default function App() {
                     className="min-h-full w-full snap-section flex flex-col relative"
                   >
                     <div className="flex-1">
-                      {app.id === 'home' && <HomeSection data={DATA} lang={lang} />}
-                      {app.id === 'experience' && <ExperienceSection data={DATA} lang={lang} />}
-                      {app.id === 'projects' && <ProjectsSection data={DATA} lang={lang} />}
-                      {app.id === 'skills' && <SkillsSection data={DATA} lang={lang} />}
+                      {app.id === 'home' && <Home data={DATA} lang={lang} />}
+                      {app.id === 'experience' && <Experience data={DATA} lang={lang} />}
+                      {app.id === 'projects' && <Projects data={DATA} lang={lang} />}
+                      {app.id === 'skills' && <Skills data={DATA} lang={lang} />}
                       {/* Placeholders para el resto */}
                       {['education', 'contact', 'about'].includes(app.id) && (
                         <div className="h-full flex items-center justify-center text-slate-500 dark:text-slate-400 p-8 text-center">

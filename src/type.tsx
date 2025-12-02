@@ -63,3 +63,8 @@ export interface AppConfig {
   icon: ComponentType<{ size?: number; className?: string }>;
   color: string;
 }
+
+export interface SectionProps {
+  data: PortfolioData;
+  lang: Language;
+}
