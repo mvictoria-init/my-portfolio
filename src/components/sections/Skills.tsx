@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Heart, Cpu, Code, Sparkles, GraduationCap 
 } from 'lucide-react';
-import { SectionProps } from '../../type';
+import { SectionProps, SkillsData } from '../../type';
 
 export const Skills: React.FC<SectionProps> = ({ data, lang }) => (
   <div className="flex items-center h-full">
@@ -10,16 +10,21 @@ export const Skills: React.FC<SectionProps> = ({ data, lang }) => (
         <div className="absolute top-0 right-0 p-8 opacity-5 rotate-12"><Cpu size={120} /></div>
         <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3"><Code className="text-blue-500" /> Hard Skills</h3>
         <div className="space-y-6">
-          {['frontend', 'backend', 'tools'].map((cat) => (
-            <div key={cat}>
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">{cat}</h4>
-              <div className="flex flex-wrap gap-2">
-                {(data.skills as any)[cat].map((s: string) => (
-                  <span key={s} className="px-3 py-1.5 rounded-lg text-sm font-medium border border-opacity-50 transition-all cursor-default hover:-translate-y-0.5 bg-slate-50 border-slate-200 text-slate-700 dark:bg-slate-900/40 dark:border-slate-700 dark:text-slate-300">{s}</span>
-                ))}
+          {(() => {
+            type HardSkillKey = 'frontend' | 'backend' | 'tools';
+            const cats: HardSkillKey[] = ['frontend', 'backend', 'tools'];
+            const skills = data.skills as SkillsData;
+            return cats.map((cat) => (
+              <div key={cat}>
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">{cat}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {skills[cat].map((s) => (
+                    <span key={s} className="px-3 py-1.5 rounded-lg text-sm font-medium border border-opacity-50 transition-all cursor-default hover:-translate-y-0.5 bg-slate-50 border-slate-200 text-slate-700 dark:bg-slate-900/40 dark:border-slate-700 dark:text-slate-300">{s}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ));
+          })()}
         </div>
       </div>
       <div className="space-y-8">

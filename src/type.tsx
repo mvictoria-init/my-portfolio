@@ -1,22 +1,21 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
 export type Language = 'es' | 'en';
 export type Theme = 'light' | 'dark';
 export type TabId = 'home' | 'experience' | 'projects' | 'skills' | 'education' | 'contact' | 'about';
 
-export interface LocalizedText {
-  es: string;
-  en: string;
+export type LocalizedText = {
+  es: ReactNode;
+  en: ReactNode;
 }
 
 export interface ProfileData {
   name: string;
   role: LocalizedText;
   about: LocalizedText;
-  location: string;
   email: string;
-  linkedin: string;
-  github: string;
+  linkedin?: string;
+  github?: string;
 }
 
 export interface ExperienceJob {
@@ -55,6 +54,20 @@ export interface PortfolioData {
   projects: ProjectItem[];
   skills: SkillsData;
   education: EducationItem[];
+  contact: ContactItem;
+}
+
+export interface ContactItem {
+  Title: LocalizedText;
+  Subtitle: LocalizedText;
+  emailLabel: LocalizedText;
+  locationLabel: LocalizedText;
+  location: string;
+}
+
+export interface SectionProps {
+  data: PortfolioData;
+  lang: Language;
 }
 
 export interface AppConfig {
@@ -62,9 +75,4 @@ export interface AppConfig {
   label: string;
   icon: ComponentType<{ size?: number; className?: string }>;
   color: string;
-}
-
-export interface SectionProps {
-  data: PortfolioData;
-  lang: Language;
 }

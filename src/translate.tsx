@@ -8,10 +8,10 @@ export const DATA: PortfolioData = {
       es: "Ingeniera de Sistemas especializada en desarrollo Full-Stack. Transformo problemas complejos en soluciones elegantes usando React, Python y arquitecturas escalables. Me apasiona fusionar la lógica del backend con experiencias de usuario fluidas y creativas.",
       en: "Systems Engineer specializing in Full-Stack development. I transform complex problems into elegant solutions using React, Python, and scalable architectures. I am passionate about merging backend logic with fluid and creative user experiences."
     },
-    location: "Maturín, Venezuela",
     email: "marial5victoria1998@gmail.com",
     linkedin: "https://www.linkedin.com/in/maria-victoria-bastardo-guerra/",
-    github: "https://github.com/mvictoria-init"
+    github: "https://github.com/mvictoria-init",
+    
   },
   experience: [
     {
@@ -99,5 +99,15 @@ export const DATA: PortfolioData = {
       institution: "Universidad de Oriente",
       year: "2024"
     }
-  ]
+  ],
+   contact: {
+    Title: { es: '¡Hablemos!', en: "Let's Connect!" },
+    Subtitle: {
+      es: 'Estoy abierta a nuevas oportunidades y proyectos desafiantes. No dudes en contactarme.',
+      en: 'I am open to new opportunities and challenging projects. Feel free to reach out.'
+    },
+    location: "Maturín, Venezuela",
+    emailLabel: { es: 'Correo Electrónico', en: 'Email Address' },
+    locationLabel: { es: 'Ubicación', en: 'Location' },
+  }
 };
