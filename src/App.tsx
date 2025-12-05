@@ -14,6 +14,7 @@ import { Contact } from './components/sections/Contact';
 import { ThemeProvider } from './context/ContextApp';
 import { useTheme } from './hooks/Hooks';
 import FloatingParticle from './components/ui/FloatingParticle';
+import ParticlesBg from './components/ui/ParticlesBg';
 import TopBar from './components/layout/TopBar';
 import AddressBar from './components/layout/AddressBar';
 import Dock from './components/layout/Dock';
@@ -121,21 +122,26 @@ function AppContent() {
   };
 
   return (
-    <div className={`h-screen w-screen overflow-hidden font-sans transition-colors duration-500`}>
+    <div className={`h-screen w-screen overflow-hidden font-sans transition-colors duration-500 text-slate-900 dark:text-slate-200`}>
       {/* BACKGROUND LAYER */}
-      <div className="fixed inset-0 bg-stone-50 dark:bg-slate-900 z-0 transition-colors duration-500">
-         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300/30 dark:bg-purple-900/20 blur-[100px] animate-float transition-colors duration-500" />
-         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-pink-300/30 dark:bg-pink-900/20 blur-[100px] animate-float transition-colors duration-500" style={{ animationDelay: '2s' }} />
+      <div className="fixed inset-0 bg-fuchsia-400 dark:bg-indigo-950 z-0 transition-colors duration-500">
+         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-purple-900/20 blur-[100px] animate-float transition-colors duration-500" />
+         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-pink-900/20 blur-[100px] animate-float transition-colors duration-500" style={{ animationDelay: '2s' }} />
          <FloatingParticle top="20%" left="10%" size="10px" color="#F472B6" delay="0s" duration="4s" />
          <FloatingParticle top="70%" left="80%" size="15px" color="#818CF8" delay="1s" duration="6s" />
          <FloatingParticle top="40%" left="60%" size="8px" color="#34D399" delay="2s" duration="5s" />
+      </div>
+
+      {/* Particles canvas (over background, under window) */}
+      <div className="absolute inset-0 pointer-events-none z-10">
+        <ParticlesBg dark={theme === 'dark'} />
       </div>
 
       {/* MAIN DESKTOP AREA */}
       <div className={`relative z-14 h-full flex flex-col items-center justify-center p-4 md:p-6 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
         
         {/* BROWSER WINDOW */}
-        <div className="w-full max-w-6xl h-[85vh] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-white/50 dark:border-slate-700/50 overflow-hidden relative transition-colors duration-500">
+        <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[85vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
           
           {/* 1. BARRA SUPERIOR (pestañas y controles) */}
           <TopBar
@@ -154,7 +160,7 @@ function AppContent() {
           <AddressBar activeTabId={activeTabId} />
 
           {/* 3. SCROLL AREA */}
-          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative bg-slate-50/50 dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500">
+          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-28">
             {openTabs.length === 0 ? (
                <div className="h-full flex items-center justify-center text-slate-400 flex-col gap-4 transition-colors duration-500">
                  <AppWindow size={48} className="opacity-50"/>

@@ -14,21 +14,21 @@ export const Contact: React.FC<SectionProps> = ({ data, lang }) => {
   
   return (
     <div className="flex items-center h-full p-8">
-      <div className="max-w-2xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-xl p-10 md:p-16 border border-slate-100 dark:border-slate-700 animate-fade-in-up">
+      <div className="max-w-2xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-10 md:p-16 border border-slate-300 dark:border-slate-700 animate-fade-in-up">
         
         {/* Título y Subtítulo */}
         <h2 className="text-4xl font-extrabold text-center text-purple-600 dark:text-purple-400 mb-4">{title}</h2>
-        <p className="text-center text-slate-600 dark:text-slate-300 mb-10 text-lg">{subtitle}</p>
+        <p className="text-center text-slate-700 dark:text-slate-300 mb-10 text-lg">{subtitle}</p>
 
         <div className="space-y-6">
           
           {/* Email */}
           <a href={`mailto:${profile.email}`} target="_blank" rel="noreferrer" className="group block">
-            <div className="flex items-center p-4 bg-slate-50 dark:bg-slate-700 rounded-xl shadow-inner transition-colors duration-300 hover:bg-purple-50 dark:hover:bg-slate-600">
+            <div className="flex items-center p-4 bg-white dark:bg-slate-700 rounded-xl shadow-sm transition-colors duration-300 hover:bg-purple-50 dark:hover:bg-slate-600">
               <Mail size={24} className="text-purple-500 mr-4 shrink-0" />
               <div className='flex flex-col items-start'>
-                <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">{emailLabel}</span>
-                <span className="text-lg font-medium text-slate-800 dark:text-white group-hover:text-purple-600">{profile.email}</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-400">{emailLabel}</span>
+                <span className="text-lg font-medium text-slate-900 dark:text-white group-hover:text-purple-600">{profile.email}</span>
               </div>
             </div>
           </a>
@@ -50,11 +50,11 @@ export const Contact: React.FC<SectionProps> = ({ data, lang }) => {
           </div>
           
           {/* Ubicación */}
-          <div className="flex items-center p-4 bg-slate-50 dark:bg-slate-700 rounded-xl shadow-inner transition-colors duration-300">
+          <div className="flex items-center p-4 bg-white dark:bg-slate-700 rounded-xl shadow-sm transition-colors duration-300">
             <Globe size={24} className="text-purple-500 mr-4 shrink-0" />
             <div className='flex flex-col items-start'>
-              <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">{locationLabel}</span>
-              <span className="text-lg font-medium text-slate-800 dark:text-white">{contactData.location}</span>
+              <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">{locationLabel}</span>
+              <span className="text-lg font-medium text-slate-900 dark:text-white">{contactData.location}</span>
             </div>
           </div>
           
