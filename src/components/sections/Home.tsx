@@ -1,27 +1,31 @@
 import React from 'react';
 import { 
-  Terminal, Star, Heart, Mail, Linkedin, Github
+  Terminal, Mail, Linkedin, Github
 } from 'lucide-react';
 import { SectionProps } from '../../type';
 
 export const Home: React.FC<SectionProps> = ({ data, lang }) => (
-  <div className="flex flex-col md:flex-row items-center justify-center gap-12 h-full p-6 animate-fade-in">
+  <div className="flex flex-col md:flex-row items-center justify-center gap-30 h-[60%] p-6 m-4 animate-fade-in">
     <div className="relative group perspective-1000 z-10">
-      <div className="absolute -top-12 -left-12 z-20 animate-spin-slow opacity-80">
-        <Star size={48} className="text-yellow-400 fill-yellow-400 drop-shadow-lg" />
-      </div>
-      <div className="absolute -bottom-8 -right-8 z-20 animate-bounce-slow opacity-80">
-        <Heart size={42} className="text-pink-500 fill-pink-500 drop-shadow-lg" />
-      </div>
-      <div className="relative transform rotate-[-3deg] group-hover:rotate-0 transition-all duration-700 ease-out-back">
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-purple-200/90 shadow-sm rotate-[-2deg] z-30" />
-        <div className="bg-white p-4 pb-16 shadow-2xl rounded-md w-[280px] md:w-[320px] transform group-hover:scale-105 transition-transform duration-500 border border-slate-200">
-          <div className="aspect-[4/5] bg-slate-100 overflow-hidden relative grayscale-[20%] group-hover:grayscale-0 transition-all duration-700">
-             <img src="src/assets/profile.jpg" alt="Profile" className="w-full h-full object-cover"/>
-             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-          <div className="absolute bottom-4 left-0 right-0 text-center">
-             <p className="font-handwriting text-slate-900 text-3xl opacity-95 rotate-[-1deg]">Hola!! ✌️</p>
+      <div className="relative transform -rotate-6 group-hover:rotate-0 transition-all duration-700 ease-out-back">
+        {/* Phone frame */}
+        <div className="rounded-[28px] border-6 border-black/90 shadow-2xl overflow-hidden w-[280px] md:w-[320px] lg:w-[360px] bg-black flex items-center justify-center h-[60%]">
+          <div className="relative w-[200px] md:w-[260px] lg:w-[300px] h-full bg-white overflow-hidden">
+            <img src="src/assets/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
+
+            {/* camera dot */}
+            <div className="absolute left-3 top-3 w-3 h-3 rounded-full bg-sky-300 ring-1 ring-white" />
+
+            {/* side buttons */}
+            <div className="absolute -right-2 top-1/4 flex flex-col gap-2">
+              <div className="w-1.5 h-6 rounded-md bg-black/80 shadow-md" />
+              <div className="w-1.5 h-10 rounded-md bg-black/80 shadow-md" />
+            </div>
+
+            {/* bottom UI bar */}
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-6 w-40 md:w-56 h-6 rounded-full border border-white/30 bg-white/10 flex items-center justify-center">
+              <div className="w-10 h-1 rounded-full bg-white/30" />
+            </div>
           </div>
         </div>
       </div>
@@ -34,8 +38,8 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => (
         </span>
         {lang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'OPEN TO WORK'}
       </div>
-      <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
-        María <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Victoria.</span>
+      <h1 className="text-5xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
+        María <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Victoria.</span>
       </h1>
       <h2 className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6 flex items-center gap-2 justify-center md:justify-start">
         <Terminal size={20} className="text-purple-500" />
