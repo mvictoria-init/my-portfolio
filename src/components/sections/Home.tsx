@@ -9,8 +9,8 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => (
     <div className="relative group perspective-1000 z-10">
       <div className="relative transform -rotate-6 group-hover:rotate-0 transition-all duration-700 ease-out-back">
         {/* Phone frame */}
-        <div className="rounded-[28px] border-6 border-black/90 shadow-2xl overflow-hidden w-[280px] md:w-[320px] lg:w-[360px] bg-black flex items-center justify-center h-[60%]">
-          <div className="relative w-[200px] md:w-[260px] lg:w-[300px] h-full bg-white overflow-hidden">
+        <div className="rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
+          <div className="relative w-[180px] md:w-[220px] lg:w-[240px] h-full bg-white overflow-hidden">
             <img src="src/assets/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
 
             {/* camera dot */}
