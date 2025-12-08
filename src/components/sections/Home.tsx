@@ -3,13 +3,33 @@ import {
   Terminal, Mail, Linkedin, Github
 } from 'lucide-react';
 import { SectionProps } from '../../type';
+import { useTheme } from '../../hooks/Hooks';
 
-export const Home: React.FC<SectionProps> = ({ data, lang }) => (
-  <div className="flex flex-col md:flex-row items-center justify-center gap-30 h-[60%] p-6 m-4 animate-fade-in">
-    <div className="relative group perspective-1000 z-10">
-      <div className="relative transform -rotate-6 group-hover:rotate-0 transition-all duration-700 ease-out-back">
+export const Home: React.FC<SectionProps> = ({ data, lang }) => {
+  const { theme } = useTheme();
+
+  return (
+    <div className="flex flex-col md:flex-row items-center justify-center gap-30 h-[60%] p-6 m-4 animate-fade-in">
+      <div className="relative group perspective-1000">
+        <div className="relative transform -rotate-6 group-hover:rotate-0 transition-all duration-700 ease-out-back">
+          {/* theme-aware halo (positioned above panel background) */}
+              <div
+                className="absolute -right-12 -top-6 rounded-full pointer-events-none z-20"
+                style={{
+                  width: '530px',
+                  height: '530px',
+                  filter: 'blur(40px)',
+                  mixBlendMode: 'screen',
+                  transform: 'translateX(10%) translateY(2%)',
+                  background: theme === 'dark'
+                    ? /* Dark: brighter cyan/teal for strong contrast */
+                      'radial-gradient(circle at 60% 40%, rgba(34,211,238,0.6), rgba(14,165,233,0.28) 40%, transparent 75%)'
+                    : /* Light: stronger purple/magenta for visibility on white */
+                      'radial-gradient(circle at 60% 40%, rgba(124,58,237,0.6), rgba(236,72,153,0.28) 40%, transparent 75%)'
+                }}
+              />
         {/* Phone frame */}
-        <div className="rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
+        <div className="relative z-30 rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
           <div className="relative w-[180px] md:w-[220px] lg:w-[240px] h-full bg-white overflow-hidden">
             <img src="src/assets/profile.jpg" alt="Profile" className="w-full h-full object-cover" />
 
@@ -39,7 +59,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => (
         {lang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'OPEN TO WORK'}
       </div>
       <h1 className="text-5xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
-        María <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Victoria.</span>
+        María <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-pink-500">Victoria.</span>
       </h1>
       <h2 className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6 flex items-center gap-2 justify-center md:justify-start">
         <Terminal size={20} className="text-purple-500" />
@@ -49,8 +69,9 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => (
       <div className="flex flex-wrap gap-4 justify-center md:justify-start">
         <a href={data.profile.linkedin} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-[#0077b5] text-white"><Linkedin size={18} /> LinkedIn</a>
         <a href={data.profile.github} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-[#333] text-white"><Github size={18} /> GitHub</a>
-        <a href={`mailto:${data.profile.email}`} className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-gradient-to-r from-pink-500 to-purple-600 text-white"><Mail size={18} /> Contact</a>
+        <a href={`mailto:${data.profile.email}`} className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-linear-to-r from-pink-500 to-purple-600 text-white"><Mail size={18} /> Contact</a>
       </div>
     </div>
   </div>
-);
+  );
+};
