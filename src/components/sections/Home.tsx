@@ -12,7 +12,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-30 h-[60%] p-6 m-4 animate-fade-in">
-      <div className="relative group perspective-1000 three-d-container">
+      <div className="relative group perspective-1000">
         <div className="relative transform -rotate-6 group-hover:rotate-0 transition-all duration-700 ease-out-back">
           {/* theme-aware halo (positioned above panel background) */}
               <div
@@ -44,7 +44,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
               <img src={sticker5} alt="sticker" className="sticker absolute hidden md:block md:right-2 md:bottom-8 md:w-8 md:opacity-60 lg:-right-4 lg:bottom-28 lg:w-6 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.28s', ['--fall-duration' as any]:'1.05s', ['--fall-rotate' as any]:'10deg', ['--fall-x' as any]:'20px'}} />
 
         {/* Phone frame */}
-        <div className="relative z-30 phone-3d rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
+        <div className="relative z-30 rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
           <div className="relative w-[180px] md:w-[220px] lg:w-[240px] h-full bg-white overflow-hidden">
             <img src={profileImg} alt="Profile" className="w-full h-full object-cover" />
 
