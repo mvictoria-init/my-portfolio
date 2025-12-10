@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Terminal, Mail, Linkedin, Github
 } from 'lucide-react';
@@ -65,7 +65,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
         </div>
       </div>
     </div>
-    <div className="max-w-xl text-center md:text-left z-10 relative">
+      <div className="max-w-xl text-center md:text-left z-10 relative">
     <img src={sticker5} alt="sticker" className="sticker absolute hidden md:block md:-right-36 md:top-8 md:w-10 md:opacity-80 lg:-top-6 lg:-right-8 lg:w-14 pointer-events-none" style={{['--fall-delay' as any]:'0.12s', ['--fall-duration' as any]:'1.3s', ['--fall-rotate' as any]:'6deg', ['--fall-x' as any]:'120px'}} />
     <img src={sticker5} alt="sticker" className="sticker absolute hidden md:block md:-right-28 md:top-20 md:w-14 md:z-50 md:opacity-85 md:rotate-6 lg:top-8 lg:right-6 lg:w-24 pointer-events-none" style={{['--fall-delay' as any]:'0.35s', ['--fall-duration' as any]:'1.4s', ['--fall-rotate' as any]:'-12deg', ['--fall-x' as any]:'90px'}} />
     {/* moved subtle adornments to phone area (non-invasive) */}
@@ -76,9 +76,38 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
         </span>
         {lang === 'es' ? 'DISPONIBLE PARA TRABAJAR' : 'OPEN TO WORK'}
       </div>
-      <h1 className="text-5xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
-        María <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-pink-500">Victoria.</span>
-      </h1>
+      {/* Typed H1 */}
+      {
+        (() => {
+          const full = 'María Victoria.';
+          const split = full.indexOf('Victoria');
+          const partA = full.slice(0, split);
+          const partB = full.slice(split);
+          const [idx, setIdx] = useState(0);
+
+          useEffect(() => {
+            setIdx(0);
+            const interval = setInterval(() => {
+              setIdx(prev => {
+                if (prev >= full.length) {
+                  clearInterval(interval);
+                  return prev;
+                }
+                return prev + 1;
+              });
+            }, 70);
+            return () => clearInterval(interval);
+          }, []);
+
+          return (
+            <h1 className="text-5xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
+              <span>{partA.slice(0, Math.min(idx, partA.length))}</span>
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-pink-500">{partB.slice(Math.max(0, idx - partA.length))}</span>
+              <span className="type-caret" aria-hidden="true" />
+            </h1>
+          );
+        })()
+      }
       <h2 className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6 flex items-center gap-2 justify-center md:justify-start">
         <Terminal size={20} className="text-purple-500" />
         {data.profile.role[lang]}

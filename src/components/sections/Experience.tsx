@@ -4,9 +4,13 @@ import { Star } from 'lucide-react';
 
 // Experience: portando estilos de Porfolio.ts con atención a dark mode
 export const Experience: React.FC<SectionProps> = ({ data, lang }) => (
-  <div className="max-w-4xl mx-auto p-8 animate-slide-up flex items-center h-full">
+  <div className="max-w-4xl mx-auto p-8 animate-slide-up flex flex-col items-center h-full">
+    {/* Título traducible */}
+    <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white text-center my-6">
+      {lang === 'es' ? 'Experiencia' : 'Experience'}
+    </h2>
     {/* Contenedor de la línea de tiempo */}
-    <div className="relative ml-4 space-y-12 py-4">
+    <div className="relative ml-4 space-y-12 py-4 w-full">
       {data.experience.map((job, idx) => (
         <div key={idx} className="relative pl-8 group">
           {/* Círculo de la línea de tiempo */}
