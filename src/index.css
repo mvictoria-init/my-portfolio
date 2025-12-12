@@ -51,8 +51,20 @@
 .sticker {
   transform-origin: center;
   /* easing más suave para movimiento más fluido */
-  animation: fallIn var(--fall-duration, 1.3s) cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--fall-delay, 0s) both;
+  /* caída inicial */
+  animation: fallIn var(--fall-duration, 1.3s) cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--fall-delay, 0s) both,
+             /* flotación continua que comienza tras la caída */
+             float var(--float-duration, 8s) ease-in-out calc(var(--fall-delay, 0s) + var(--fall-duration, 1.3s)) infinite;
   will-change: transform, opacity;
+}
+
+  /* Flotación leve y oscilante para dar más movilidad a las burbujas */
+@keyframes float {
+  0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+  25% { transform: translateX(calc(var(--float-x, 12px) * 0.6)) translateY(-6px) rotate(calc(var(--float-rotate, 6deg) * 0.4)); }
+  50% { transform: translateX(calc(var(--float-x, 12px) * -1)) translateY(3px) rotate(calc(var(--float-rotate, 6deg) * -0.6)); }
+  75% { transform: translateX(calc(var(--float-x, 12px) * 0.6)) translateY(-4px) rotate(calc(var(--float-rotate, 6deg) * 0.3)); }
+  100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
 }
 
 /* Cursor de escritura (caret) */
