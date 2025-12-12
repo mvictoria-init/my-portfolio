@@ -251,7 +251,7 @@ const JobTimelineItem: React.FC<{ job: ExperienceJob; lang: Language; isLast: bo
       
       <p className="text-slate-600 dark:text-slate-300 mb-4">{job.desc[lang]}</p>
       
-      {/* Logros (Achievements) */}
+      {/* Logros */}
       <div className="space-y-2 mb-4 border-l-2 border-yellow-300/50 dark:border-yellow-700/50 pl-3">
         {job.achievements.map((ach, aIdx) => (
           <div key={aIdx} className="flex items-start gap-2 text-sm text-slate-500 dark:text-slate-400">

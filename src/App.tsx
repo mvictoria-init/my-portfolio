@@ -203,10 +203,7 @@ function AppContent() {
         {/* 4. DOCK (extraído) */}
         <Dock apps={APPS} openTabs={openTabs} activeTabId={activeTabId} scrollToSection={scrollToSection} />
 
-        {/* Barra de depuración de tema (solo para verificar dark mode) */}
-        <div className="fixed bottom-2 right-2 z-9999 px-3 py-2 rounded-md bg-white dark:bg-black text-black dark:text-white shadow border border-slate-200 dark:border-slate-700">
-          Tema actual: {theme}
-        </div>
+        {/* Eliminado badge de depuración de tema (no mostrar en producción) */}
       </div>
     </div>
   );
