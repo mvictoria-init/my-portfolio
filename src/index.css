@@ -30,16 +30,21 @@
 /* Animación de caída de stickers */
 @keyframes fallIn {
   0% {
-    transform: translateX(var(--fall-x, 0px)) translateY(-120px) rotate(var(--fall-rotate, -8deg)) scale(.96);
+    transform: translateX(var(--fall-x, 0px)) translateY(-90px) rotate(var(--fall-rotate, -6deg)) scale(.98);
     opacity: 0;
   }
-  55% {
-    /* arco y sobrepaso más suave */
-    transform: translateX(calc(var(--fall-x, 0px) * 0.18)) translateY(12px) rotate(calc(var(--fall-rotate, -8deg) * 0.45)) scale(1.02);
+  60% {
+    /* paso intermedio suave */
+    transform: translateX(calc(var(--fall-x, 0px) * 0.10)) translateY(8px) rotate(calc(var(--fall-rotate, -6deg) * 0.2)) scale(1.015);
     opacity: 1;
   }
   85% {
-    transform: translateX(calc(var(--fall-x, 0px) * 0.04)) translateY(-4px) rotate(calc(var(--fall-rotate, -8deg) * 0.12)) scale(0.995);
+    /* aproximación final más gradual */
+    transform: translateX(calc(var(--fall-x, 0px) * 0.04)) translateY(2px) rotate(calc(var(--fall-rotate, -6deg) * 0.08)) scale(1.005);
+    opacity: 1;
+  }
+  95% {
+    transform: translateX(calc(var(--fall-x, 0px) * 0.02)) translateY(0.6px) rotate(calc(var(--fall-rotate, -6deg) * 0.03)) scale(1.002);
     opacity: 1;
   }
   100% {
@@ -50,23 +55,39 @@
 
 .sticker {
   transform-origin: center;
-  /* easing más suave para movimiento más fluido */
-  /* caída inicial */
-  animation: fallIn var(--fall-duration, 1.3s) cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--fall-delay, 0s) both,
-             /* flotación continua que comienza tras la caída */
-             float var(--float-duration, 8s) ease-in-out calc(var(--fall-delay, 0s) + var(--fall-duration, 1.3s)) infinite;
+  /* solo la animación de caída por defecto; la flotación se activa dinámicamente */
+  animation: fallIn var(--fall-duration, 2.6s) cubic-bezier(0.22, 1, 0.36, 1) var(--fall-delay, 0s) both;
+  will-change: transform, opacity;
+}
+
+/* Variante más suave de la animación para stickers específicos (p. ej. sticker5) */
+.sticker-smooth {
+  transform-origin: center;
+  /* variante extra suave: solo caída más lenta; la flotación se activa después vía JS */
+  transform: translateZ(0);
+  animation: fallIn var(--fall-duration, 3s) cubic-bezier(0.23, 0.8, 0.32, 1) var(--fall-delay, 0s) both;
+  /* transición final para suavizar micro-saltos al terminar la animación */
+  transition: transform 420ms cubic-bezier(0.22,0.9,0.35,1);
   will-change: transform, opacity;
 }
 
   /* Flotación leve y oscilante para dar más movilidad a las burbujas */
+
 @keyframes float {
-  0% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+  /* start the float at a transform very close to fallIn's final intermediate
+     state to avoid a cut when the animations switch */
+  0% { transform: translateX(calc(var(--float-x, 12px) * 0.02)) translateY(0.6px) rotate(calc(var(--float-rotate, 6deg) * 0.03)); }
   25% { transform: translateX(calc(var(--float-x, 12px) * 0.6)) translateY(-6px) rotate(calc(var(--float-rotate, 6deg) * 0.4)); }
   50% { transform: translateX(calc(var(--float-x, 12px) * -1)) translateY(3px) rotate(calc(var(--float-rotate, 6deg) * -0.6)); }
   75% { transform: translateX(calc(var(--float-x, 12px) * 0.6)) translateY(-4px) rotate(calc(var(--float-rotate, 6deg) * 0.3)); }
   100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
 }
 
+/* Clase que activa la animación de flotación; se añade dinámicamente cuando la caída termina */
+.sticker.float-active {
+  animation: fallIn var(--fall-duration, 2.6s) cubic-bezier(0.22, 1, 0.36, 1) var(--fall-delay, 0s) both,
+             float var(--float-duration, 8s) ease-in-out calc(var(--fall-delay, 0s) + var(--fall-duration, 2.6s)) infinite;
+}
 /* Cursor de escritura (caret) */
 @keyframes blinkCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .type-caret::after {

@@ -15,6 +15,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
   const typingInterval = useRef<number | null>(null);
   const full = 'María Victoria.';
   const highlightStart = full.indexOf('Victoria');
+  const stickerTimeouts = useRef<number[]>([]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -55,6 +56,38 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
     };
   }, [hasAppeared]);
 
+  useEffect(() => {
+    if (!hasAppeared) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    // find stickers inside this section and activate float after fall finishes
+    const stickers = Array.from(el.querySelectorAll('.sticker')) as HTMLElement[];
+    const parseTime = (v: string) => {
+      const s = (v || '').trim();
+      if (!s) return 0;
+      if (s.endsWith('ms')) return parseFloat(s);
+      if (s.endsWith('s')) return parseFloat(s) * 1000;
+      return parseFloat(s) || 0;
+    };
+
+    stickers.forEach(st => {
+      const cs = getComputedStyle(st);
+      const d = parseTime(cs.getPropertyValue('--fall-delay'));
+      const dur = parseTime(cs.getPropertyValue('--fall-duration')) || (st.classList.contains('sticker-smooth') ? 3000 : 2600);
+      const buffer = 80; // small buffer to ensure fall finished
+      const total = Math.max(0, d + dur + buffer);
+      const id = window.setTimeout(() => {
+        st.classList.add('float-active');
+      }, total);
+      stickerTimeouts.current.push(id);
+    });
+
+    return () => {
+      stickerTimeouts.current.forEach(id => window.clearTimeout(id));
+      stickerTimeouts.current = [];
+    };
+  }, [hasAppeared]);
+
   return (
     <div ref={sectionRef} className="flex flex-col md:flex-row items-center justify-center gap-30 h-[60%] p-6 m-4 animate-fade-in">
       <div className="relative group perspective-1000">
@@ -78,15 +111,15 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
 
               {/* Pegatinas alrededor del teléfono (estáticas, sin interacción) */}
               
-              <img src={sticker5} alt="sticker" className="sticker absolute -left-6 bottom-8 w-12 md:w-16 rotate-12 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.10s', ['--fall-duration' as any]:'1s', ['--fall-rotate' as any]:'-10deg', ['--fall-x' as any]:'-40px', ['--float-duration' as any]:'8.5s', ['--float-x' as any]:'12px', ['--float-rotate' as any]:'6deg'}} />
-              <img src={sticker5} alt="sticker" className="sticker absolute -right-16 top-2 w-6 md:w-10 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.15s', ['--fall-duration' as any]:'1.1s', ['--fall-rotate' as any]:'8deg', ['--fall-x' as any]:'40px', ['--float-duration' as any]:'9s', ['--float-x' as any]:'10px', ['--float-rotate' as any]:'5deg'}} />
-              <img src={sticker5} alt="sticker" className="sticker absolute -right-20 top-48 w-14 md:w-20 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.25s', ['--fall-duration' as any]:'1.2s', ['--fall-rotate' as any]:'-6deg', ['--fall-x' as any]:'60px', ['--float-duration' as any]:'8.5s', ['--float-x' as any]:'18px', ['--float-rotate' as any]:'8deg'}} />
-              <img src={sticker5} alt="sticker" className="sticker absolute -left-20 top-48 w-10 md:w-14 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.20s', ['--fall-duration' as any]:'1.05s', ['--fall-rotate' as any]:'12deg', ['--fall-x' as any]:'-50px', ['--float-duration' as any]:'9.2s', ['--float-x' as any]:'14px', ['--float-rotate' as any]:'10deg'}} />
-              <img src={sticker5} alt="sticker" className="sticker absolute -left-20 top-4 w-8 md:w-12 z-[60] pointer-events-none" style={{['--fall-delay' as any]:'0.18s', ['--fall-duration' as any]:'1.15s', ['--fall-rotate' as any]:'-20deg', ['--fall-x' as any]:'-60px', ['--float-duration' as any]:'8.8s', ['--float-x' as any]:'20px', ['--float-rotate' as any]:'12deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -left-6 bottom-8 w-12 md:w-16 rotate-12 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.10s', ['--fall-duration' as any]:'1s', ['--fall-rotate' as any]:'-10deg', ['--fall-x' as any]:'-40px', ['--float-duration' as any]:'8.5s', ['--float-x' as any]:'12px', ['--float-rotate' as any]:'6deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -right-16 top-2 w-6 md:w-10 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.15s', ['--fall-duration' as any]:'1.1s', ['--fall-rotate' as any]:'8deg', ['--fall-x' as any]:'40px', ['--float-duration' as any]:'9s', ['--float-x' as any]:'10px', ['--float-rotate' as any]:'5deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -right-20 top-48 w-14 md:w-20 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.25s', ['--fall-duration' as any]:'1.2s', ['--fall-rotate' as any]:'-6deg', ['--fall-x' as any]:'60px', ['--float-duration' as any]:'8.5s', ['--float-x' as any]:'18px', ['--float-rotate' as any]:'8deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -left-20 top-48 w-10 md:w-14 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.20s', ['--fall-duration' as any]:'1.05s', ['--fall-rotate' as any]:'12deg', ['--fall-x' as any]:'-50px', ['--float-duration' as any]:'9.2s', ['--float-x' as any]:'14px', ['--float-rotate' as any]:'10deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -left-20 top-4 w-8 md:w-12 z-[60] pointer-events-none" style={{['--fall-delay' as any]:'0.18s', ['--fall-duration' as any]:'1.15s', ['--fall-rotate' as any]:'-20deg', ['--fall-x' as any]:'-60px', ['--float-duration' as any]:'8.8s', ['--float-x' as any]:'20px', ['--float-rotate' as any]:'12deg'}} />
               {/* Pegatinas adicionales sutiles (no invasivas) */}
-              <img src={sticker5} alt="sticker" className="sticker absolute hidden md:block md:-right-6 md:top-8 md:w-8 md:opacity-70 lg:-right-8 lg:top-36 lg:w-10 z-20 pointer-events-none" style={{['--fall-delay' as any]:'0.22s', ['--fall-duration' as any]:'1s', ['--fall-rotate' as any]:'6deg', ['--fall-x' as any]:'30px', ['--float-duration' as any]:'8.2s', ['--float-x' as any]:'8px', ['--float-rotate' as any]:'4deg'}} />
-              <img src={sticker5} alt="sticker" className="sticker absolute hidden md:block md:-left-8 md:top-12 md:w-8 md:opacity-60 md:rotate-6 lg:left-28 lg:top-10 lg:rotate-12 lg:w-6 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.30s', ['--fall-duration' as any]:'1.25s', ['--fall-rotate' as any]:'-8deg', ['--fall-x' as any]:'-30px', ['--float-duration' as any]:'9.5s', ['--float-x' as any]:'10px', ['--float-rotate' as any]:'6deg'}} />
-              <img src={sticker5} alt="sticker" className="sticker absolute hidden md:block md:right-2 md:bottom-8 md:w-8 md:opacity-60 lg:-right-4 lg:bottom-28 lg:w-6 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.28s', ['--fall-duration' as any]:'1.05s', ['--fall-rotate' as any]:'10deg', ['--fall-x' as any]:'20px', ['--float-duration' as any]:'8.7s', ['--float-x' as any]:'9px', ['--float-rotate' as any]:'5deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute hidden md:block md:-right-6 md:top-8 md:w-8 md:opacity-70 lg:-right-8 lg:top-36 lg:w-10 z-20 pointer-events-none" style={{['--fall-delay' as any]:'0.22s', ['--fall-duration' as any]:'1s', ['--fall-rotate' as any]:'6deg', ['--fall-x' as any]:'30px', ['--float-duration' as any]:'8.2s', ['--float-x' as any]:'8px', ['--float-rotate' as any]:'4deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute hidden md:block md:-left-8 md:top-12 md:w-8 md:opacity-60 md:rotate-6 lg:left-28 lg:top-10 lg:rotate-12 lg:w-6 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.30s', ['--fall-duration' as any]:'1.25s', ['--fall-rotate' as any]:'-8deg', ['--fall-x' as any]:'-30px', ['--float-duration' as any]:'9.5s', ['--float-x' as any]:'10px', ['--float-rotate' as any]:'6deg'}} />
+              <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute hidden md:block md:right-2 md:bottom-8 md:w-8 md:opacity-60 lg:-right-4 lg:bottom-28 lg:w-6 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.28s', ['--fall-duration' as any]:'1.05s', ['--fall-rotate' as any]:'10deg', ['--fall-x' as any]:'20px', ['--float-duration' as any]:'8.7s', ['--float-x' as any]:'9px', ['--float-rotate' as any]:'5deg'}} />
 
         {/* Marco del teléfono */}
         <div className="relative z-30 rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
