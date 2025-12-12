@@ -2,7 +2,7 @@ import React from 'react';
 import { SectionProps } from '../../type';
 import { Star } from 'lucide-react';
 
-// Experience: portando estilos de Porfolio.ts con atención a dark mode
+// Experiencia
 export const Experience: React.FC<SectionProps> = ({ data, lang }) => (
   <div className="max-w-4xl mx-auto p-8 animate-slide-up flex flex-col items-center h-full">
     {/* Título traducible */}

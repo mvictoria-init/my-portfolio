@@ -27,14 +27,14 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const root = document.documentElement;
     if (theme === 'dark') root.classList.add('dark');
     else root.classList.remove('dark');
-    // Add a data attribute for easier debugging in DOM inspector
+    // Agrega un atributo data para facilitar la depuración en el inspector DOM
     try { root.setAttribute('data-theme', theme); } catch {}
     try { localStorage.setItem('theme', theme); } catch {}
-    // Debug logs to help trace theme changes during development
+    // Registros de depuración para ayudar a rastrear cambios de tema durante el desarrollo
     // eslint-disable-next-line no-console
     console.log('[ThemeProvider] theme set to', theme);
     try {
-      // show current classList for root and count of elements with 'dark' class
+      // muestra classList actual del root y cuenta de elementos con la clase 'dark'
       // eslint-disable-next-line no-console
       console.log('[ThemeProvider] root.classList=', Array.from(root.classList).join(' '));
       // eslint-disable-next-line no-console
@@ -42,7 +42,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       // eslint-disable-next-line no-console
       console.log('[ThemeProvider] elements with .dark=', darkEls.length);
     } catch (err) {
-      // ignore
+      // ignorar
     }
   }, [theme]);
 
