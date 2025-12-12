@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { SectionProps } from '../../type';
 import { Star } from 'lucide-react';
 import sticker5 from '../../assets/img (5).webp';
+import img6 from '../../assets/img (6).webp';
 
 // Experiencia
 export const Experience: React.FC<SectionProps> = ({ data, lang }) => {
@@ -50,12 +51,17 @@ export const Experience: React.FC<SectionProps> = ({ data, lang }) => {
     <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -left-6 top-6 w-10 md:w-14 opacity-90 hidden sm:block pointer-events-none" style={{['--float-duration' as any]:'8.5s', ['--float-x' as any]:'22px', ['--float-rotate' as any]:'10deg'}} />
     <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute right-12 top-20 w-6 md:w-10 opacity-70 hidden md:block pointer-events-none" style={{['--float-duration' as any]:'11s', ['--float-x' as any]:'14px', ['--float-rotate' as any]:'4deg'}} />
     <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -right-16 bottom-8 w-10 md:w-14 opacity-75 hidden lg:block pointer-events-none" style={{['--float-duration' as any]:'9.8s', ['--float-x' as any]:'20px', ['--float-rotate' as any]:'9deg'}} />
+    {/* Pegatinas extra para dar más movimiento */}
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -bottom-6 left-8 w-8 md:w-10 opacity-80 hidden md:block pointer-events-none" style={{['--float-duration' as any]:'12s', ['--float-x' as any]:'10px', ['--float-rotate' as any]:'3deg', animationDelay: '0.6s'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute right-24 top-6 w-8 md:w-12 opacity-85 hidden lg:block pointer-events-none" style={{['--float-duration' as any]:'7.5s', ['--float-x' as any]:'16px', ['--float-rotate' as any]:'7deg', animationDelay: '1.2s'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute left-1/2 -top-14 translate-x-[-50%] w-12 md:w-16 opacity-90 pointer-events-none" style={{['--float-duration' as any]:'10.5s', ['--float-x' as any]:'14px', ['--float-rotate' as any]:'5deg', animationDelay: '0.3s'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -left-10 bottom-20 w-6 md:w-10 opacity-70 hidden sm:block pointer-events-none" style={{['--float-duration' as any]:'9.2s', ['--float-x' as any]:'18px', ['--float-rotate' as any]:'11deg', animationDelay: '1s'}} />
     {/* Contenedor de la línea de tiempo */}
     <div className="relative ml-4 space-y-12 py-4 w-full">
       {data.experience.map((job, idx) => (
         <div key={idx} className="relative pl-8 group reveal-item transition-all duration-1000 ease-out will-change-transform">
-          {/* Círculo de la línea de tiempo */}
-          <div className="absolute top-0 -left-[9px] w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-purple-500 transition-transform group-hover:scale-125 z-10" />
+          {/* Imagen en el punto de la línea de tiempo (reemplaza el punto) */}
+          <img src={img6} alt={`${job.company} logo`} className="absolute top-0 -left-[11px] w-6 h-6 rounded-full object-cover z-10 shadow-sm" />
           {/* Línea de tiempo (oculta para último) */}
           {idx !== data.experience.length - 1 && (
             <div className="absolute top-0 left-0 w-0.5 h-full bg-purple-200 dark:bg-purple-800 transition-colors group-hover:bg-purple-500 z-0" />
