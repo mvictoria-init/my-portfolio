@@ -11,10 +11,13 @@ export const Projects: React.FC<SectionProps> = ({ data, lang }) => (
           {/* Barra de color superior con animación sutil */}
           <div className={`h-2 w-full bg-gradient-to-r ${project.color} group-hover:h-3 transition-all duration-300`} />
           <div className="p-6">
-            <div className="flex justify-between items-start mb-4">
-              {/* Icono del proyecto con gradiente */}
-              <div className={`p-3 rounded-xl bg-linear-to-br ${project.color} text-white shadow-lg transition-transform group-hover:scale-110`}>
-                <FolderOpen size={24} />
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center gap-4">
+                {/* Icono del proyecto con gradiente */}
+                <div className={`p-3 rounded-xl bg-linear-to-br ${project.color} text-white shadow-lg transition-transform group-hover:scale-110`}>
+                  <FolderOpen size={24} />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-purple-600 transition-colors">{project.title}</h3>
               </div>
               {/* Enlace externo */}
               {project.link && (
@@ -23,7 +26,6 @@ export const Projects: React.FC<SectionProps> = ({ data, lang }) => (
                 </a>
               )}
             </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-purple-600 transition-colors">{project.title}</h3>
             <p className="text-slate-800 dark:text-slate-400 text-sm mb-6 leading-relaxed">{project.desc[lang]}</p>
             {/* Etiquetas de tecnología */}
             <div className="flex flex-wrap gap-2">
