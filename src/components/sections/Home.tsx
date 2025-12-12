@@ -153,7 +153,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
       <h1 className="text-5xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-tight">
         <span>{full.slice(0, Math.min(typedCount, highlightStart))}</span>
         <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-pink-500">{typedCount > highlightStart ? full.slice(highlightStart, Math.min(typedCount, full.length)) : ''}</span>
-        <span className="type-caret" aria-hidden="true" />
+        {typedCount < full.length ? <span className="type-caret" aria-hidden="true" /> : null}
       </h1>
       <h2 className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6 flex items-center gap-2 justify-center md:justify-start">
         <Terminal size={20} className="text-purple-500" />
