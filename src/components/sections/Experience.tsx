@@ -1,18 +1,59 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SectionProps } from '../../type';
 import { Star } from 'lucide-react';
+import sticker5 from '../../assets/img (5).webp';
 
 // Experiencia
-export const Experience: React.FC<SectionProps> = ({ data, lang }) => (
-  <div className="max-w-4xl mx-auto p-8 animate-slide-up flex flex-col items-center h-full">
+export const Experience: React.FC<SectionProps> = ({ data, lang }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+
+    const items = Array.from(root.querySelectorAll<HTMLElement>('.reveal-item'));
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            el.classList.add('opacity-100', 'translate-y-0');
+            el.classList.remove('opacity-0', 'translate-y-6');
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.12, root: null, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    items.forEach(i => {
+      // ensure initial state
+      i.classList.add('opacity-0', 'translate-y-6');
+      i.classList.remove('opacity-100', 'translate-y-0');
+      observer.observe(i);
+    });
+
+    return () => observer.disconnect();
+  }, [data]);
+
+  return (
+    <div ref={containerRef} className="max-w-4xl mx-auto p-8 animate-slide-up flex flex-col items-center h-full relative">
     {/* Título traducible */}
     <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white text-center my-6">
       {lang === 'es' ? 'Experiencia' : 'Experience'}
     </h2>
+    {/* Pegatinas decorativas movidas desde Home: flotan alrededor y dan continuidad visual */}
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -right-6 -top-6 w-12 md:w-16 z-10 pointer-events-none" style={{['--float-duration' as any]:'9s', ['--float-x' as any]:'18px', ['--float-rotate' as any]:'8deg'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute left-4 -top-10 w-8 md:w-12 opacity-80 pointer-events-none" style={{['--float-duration' as any]:'10s', ['--float-x' as any]:'12px', ['--float-rotate' as any]:'6deg'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -left-6 top-6 w-10 md:w-14 opacity-90 hidden sm:block pointer-events-none" style={{['--float-duration' as any]:'8.5s', ['--float-x' as any]:'22px', ['--float-rotate' as any]:'10deg'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute right-12 top-20 w-6 md:w-10 opacity-70 hidden md:block pointer-events-none" style={{['--float-duration' as any]:'11s', ['--float-x' as any]:'14px', ['--float-rotate' as any]:'4deg'}} />
+    <img src={sticker5} alt="sticker" className="sticker sticker-smooth float-active absolute -right-16 bottom-8 w-10 md:w-14 opacity-75 hidden lg:block pointer-events-none" style={{['--float-duration' as any]:'9.8s', ['--float-x' as any]:'20px', ['--float-rotate' as any]:'9deg'}} />
     {/* Contenedor de la línea de tiempo */}
     <div className="relative ml-4 space-y-12 py-4 w-full">
       {data.experience.map((job, idx) => (
-        <div key={idx} className="relative pl-8 group">
+        <div key={idx} className="relative pl-8 group reveal-item transition-all duration-1000 ease-out will-change-transform">
           {/* Círculo de la línea de tiempo */}
           <div className="absolute top-0 -left-[9px] w-4 h-4 rounded-full bg-white dark:bg-slate-900 border-4 border-purple-500 transition-transform group-hover:scale-125 z-10" />
           {/* Línea de tiempo (oculta para último) */}
@@ -48,5 +89,6 @@ export const Experience: React.FC<SectionProps> = ({ data, lang }) => (
         </div>
       ))}
     </div>
-  </div>
-);
+    </div>
+    );
+  };

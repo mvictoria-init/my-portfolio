@@ -203,7 +203,6 @@ function AppContent() {
         {/* 4. DOCK (extraído) */}
         <Dock apps={APPS} openTabs={openTabs} activeTabId={activeTabId} scrollToSection={scrollToSection} />
 
-        {/* Eliminado badge de depuración de tema (no mostrar en producción) */}
       </div>
     </div>
   );
