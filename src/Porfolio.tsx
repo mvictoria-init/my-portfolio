@@ -292,7 +292,7 @@ const SkillList: React.FC<{ title: string; skills: string[]; icon: React.FC<any>
 // --- COMPONENTES PRINCIPALES DE SECCIÓN ---
 // ------------------------------------------
 
-// 1. HOME SECTION (Componente de Bienvenida y Perfil)
+// 1. SECCIÓN INICIO (Componente de Bienvenida y Perfil)
 export const HomeSection: React.FC<SectionProps> = ({ data, lang }) => (
   <div className="flex flex-col md:flex-row items-center justify-center gap-12 h-full p-6 animate-fade-in">
     <div className="relative group perspective-1000 z-10">

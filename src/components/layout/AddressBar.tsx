@@ -3,7 +3,6 @@ import { ArrowLeft, ArrowRight, RotateCw, Lock } from 'lucide-react';
 import { TabId } from '../../type';
 
 // Barra de dirección simulada (Address Bar)
-// - Mantiene las mismas clases de Tailwind para preservar el aspecto visual
 // - Recibe `activeTabId` para mostrar la ruta actual
 type Props = {
   activeTabId: TabId;

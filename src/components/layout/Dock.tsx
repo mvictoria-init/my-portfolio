@@ -10,7 +10,6 @@ type Props = {
 };
 
 // Dock (barra inferior con iconos)
-// Comentarios en español: este componente preserva las mismas clases Tailwind
 // para mantener la apariencia exacta. Recibe la lista de apps, cuáles están
 // abiertas y la pestaña activa. Al hacer click invoca `scrollToSection`.
 const Dock: React.FC<Props> = ({ apps, openTabs, activeTabId, scrollToSection }) => {

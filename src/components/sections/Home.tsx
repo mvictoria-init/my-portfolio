@@ -15,7 +15,7 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
   const typingInterval = useRef<number | null>(null);
   const full = 'María Victoria.';
   const highlightStart = full.indexOf('Victoria');
-  const stickerTimeouts = useRef<number[]>([]);
+  
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -60,31 +60,26 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
     if (!hasAppeared) return;
     const el = sectionRef.current;
     if (!el) return;
-    // find stickers inside this section and activate float after fall finishes
+
+    // Adjuntar listeners de 'animationend' para que la flotación empiece justo cuando 'fallIn' termine.
     const stickers = Array.from(el.querySelectorAll('.sticker')) as HTMLElement[];
-    const parseTime = (v: string) => {
-      const s = (v || '').trim();
-      if (!s) return 0;
-      if (s.endsWith('ms')) return parseFloat(s);
-      if (s.endsWith('s')) return parseFloat(s) * 1000;
-      return parseFloat(s) || 0;
-    };
+    const listeners: { el: HTMLElement; handler: (ev: AnimationEvent) => void }[] = [];
 
     stickers.forEach(st => {
-      const cs = getComputedStyle(st);
-      const d = parseTime(cs.getPropertyValue('--fall-delay'));
-      const dur = parseTime(cs.getPropertyValue('--fall-duration')) || (st.classList.contains('sticker-smooth') ? 3000 : 2600);
-      const buffer = 80; // small buffer to ensure fall finished
-      const total = Math.max(0, d + dur + buffer);
-      const id = window.setTimeout(() => {
-        st.classList.add('float-active');
-      }, total);
-      stickerTimeouts.current.push(id);
+      const handler = (ev: AnimationEvent) => {
+          // Solo responder cuando la animación 'fallIn' termine
+        if (ev.animationName === 'fallIn') {
+          st.classList.add('float-active');
+          // eliminar este listener una vez manejado
+          st.removeEventListener('animationend', handler as any);
+        }
+      };
+      st.addEventListener('animationend', handler as any);
+      listeners.push({ el: st, handler });
     });
 
     return () => {
-      stickerTimeouts.current.forEach(id => window.clearTimeout(id));
-      stickerTimeouts.current = [];
+      listeners.forEach(({ el, handler }) => el.removeEventListener('animationend', handler as any));
     };
   }, [hasAppeared]);
 

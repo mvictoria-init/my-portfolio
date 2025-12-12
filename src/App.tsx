@@ -45,24 +45,24 @@ function AppContent() {
   const { theme, toggleTheme } = useTheme();
   const [lang, setLang] = useState<Language>('es');
   
-  // Tabs State
+  // Estado de pestañas
   const [activeTabId, setActiveTabId] = useState<TabId>('home');
   const [openTabs, setOpenTabs] = useState<TabId[]>(['home', 'experience', 'projects', 'skills']);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
-
-  // Refs
+  
+  // Referencias
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<Record<TabId, HTMLElement | null>>({} as Record<TabId, HTMLElement | null>);
-
-  // Theme is handled by ThemeProvider (adds/removes `dark` class and saves to localStorage)
+  
+  // El tema lo maneja ThemeProvider (añade/quita la clase `dark` y lo guarda en localStorage)
 
   // Inicialización
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
-  // Scroll Observer (Spy)
+  // Observador de scroll (spy)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -85,8 +85,8 @@ function AppContent() {
     return () => observer.disconnect();
   }, [openTabs, isManualScrolling]);
 
-  // Handlers
-  // `toggleTheme` from context
+  // Manejadores
+  // `toggleTheme` desde el contexto
 
   const toggleLang = () => setLang(prev => prev === 'es' ? 'en' : 'es');
 
@@ -123,7 +123,7 @@ function AppContent() {
 
   return (
     <div className={`h-screen w-screen overflow-hidden font-sans transition-colors duration-500 text-slate-900 dark:text-slate-200`}>
-      {/* BACKGROUND LAYER */}
+      {/* CAPA DE FONDO */}
       <div className="fixed inset-0 bg-fuchsia-400 dark:bg-indigo-950 z-0 transition-colors duration-500">
          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-purple-900/20 blur-[100px] animate-float transition-colors duration-500" />
          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-pink-900/20 blur-[100px] animate-float transition-colors duration-500" style={{ animationDelay: '2s' }} />
@@ -132,15 +132,15 @@ function AppContent() {
          <FloatingParticle top="40%" left="60%" size="8px" color="#34D399" delay="2s" duration="5s" />
       </div>
 
-      {/* Particles canvas (over background, under window) */}
+      {/* Lienzo de partículas (sobre el fondo, debajo de la ventana) */}
       <div className="absolute inset-0 pointer-events-none z-10">
         <ParticlesBg dark={theme === 'dark'} />
       </div>
 
-      {/* MAIN DESKTOP AREA */}
+      {/* ÁREA PRINCIPAL */}
       <div className={`relative z-14 h-full flex flex-col items-center justify-center p-4 md:p-6 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
         
-        {/* BROWSER WINDOW */}
+        {/* VENTANA DEL NAVEGADOR */}
         <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[85vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
           
           {/* 1. BARRA SUPERIOR (pestañas y controles) */}
@@ -156,10 +156,10 @@ function AppContent() {
             toggleTheme={toggleTheme}
           />
 
-          {/* 2. ADDRESS BAR (extraído) */}
+          {/* 2. BARRA DE DIRECCIÓN (extraído) */}
           <AddressBar activeTabId={activeTabId} />
 
-          {/* 3. SCROLL AREA */}
+          {/* 3. ÁREA DE DESPLAZAMIENTO */}
           <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-28">
             {openTabs.length === 0 ? (
                <div className="h-full flex items-center justify-center text-slate-400 flex-col gap-4 transition-colors duration-500">
