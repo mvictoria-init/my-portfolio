@@ -1,16 +1,18 @@
 import React from 'react';
 import { Mail, Linkedin, Github, Globe } from 'lucide-react';
 import { SectionProps, ContactItem } from '../../type';
+import { useTranslation } from '../../hooks/Hooks';
 
-export const Contact: React.FC<SectionProps> = ({ data, lang }) => {
+export const Contact: React.FC<SectionProps> = ({ data }) => {
   const contactData: ContactItem = data.contact;
   const profile = data.profile;
-  
+  const { t } = useTranslation();
+
   // Obtener textos traducidos según el idioma
-  const title = contactData.Title[lang];
-  const subtitle = contactData.Subtitle[lang];
-  const emailLabel = contactData.emailLabel[lang];
-  const locationLabel = contactData.locationLabel[lang];
+  const title = t(contactData.Title);
+  const subtitle = t(contactData.Subtitle);
+  const emailLabel = t(contactData.emailLabel);
+  const locationLabel = t(contactData.locationLabel);
   
   return (
     <div className="flex items-center h-full p-8">

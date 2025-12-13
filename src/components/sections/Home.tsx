@@ -3,12 +3,13 @@ import {
   Terminal, Mail, Linkedin, Github
 } from 'lucide-react';
 import { SectionProps } from '../../type';
-import { useTheme } from '../../hooks/Hooks';
+import { useTheme, useTranslation } from '../../hooks/Hooks';
 import sticker5 from '../../assets/img (5).webp';
 import profileImg from '../../assets/profile.webp';
 
-export const Home: React.FC<SectionProps> = ({ data, lang }) => {
+export const Home: React.FC<SectionProps> = ({ data }) => {
   const { theme } = useTheme();
+  const { lang, t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [hasAppeared, setHasAppeared] = useState(false);
   const [typedCount, setTypedCount] = useState(0);
@@ -157,9 +158,9 @@ export const Home: React.FC<SectionProps> = ({ data, lang }) => {
       </h1>
       <h2 className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium mb-6 flex items-center gap-2 justify-center md:justify-start">
         <Terminal size={20} className="text-purple-500" />
-        {data.profile.role[lang]}
+        {t(data.profile.role)}
       </h2>
-      <p className="text-slate-700 dark:text-slate-400 leading-relaxed mb-8 text-lg">{data.profile.about[lang]}</p>
+      <p className="text-slate-700 dark:text-slate-400 leading-relaxed mb-8 text-lg">{t(data.profile.about)}</p>
       <div className="flex flex-wrap gap-4 justify-center md:justify-start">
         <a href={data.profile.linkedin} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-[#0077b5] text-white"><Linkedin size={18} /> LinkedIn</a>
         <a href={data.profile.github} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-[#333] text-white"><Github size={18} /> GitHub</a>

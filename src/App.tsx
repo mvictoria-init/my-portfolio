@@ -11,8 +11,8 @@ import { Experience } from './components/sections/Experience';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
 import { Contact } from './components/sections/Contact';
-import { ThemeProvider } from './context/ContextApp';
-import { useTheme } from './hooks/Hooks';
+import { ThemeProvider, LanguageProvider } from './context/ContextApp';
+import { useTheme, useTranslation } from './hooks/Hooks';
 import FloatingParticle from './components/ui/FloatingParticle';
 import ParticlesBg from './components/ui/ParticlesBg';
 import TopBar from './components/layout/TopBar';
@@ -36,14 +36,16 @@ const APPS: AppConfig[] = [
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
 
 function AppContent() {
   const { theme, toggleTheme } = useTheme();
-  const [lang, setLang] = useState<Language>('es');
+  const { lang, setLang, t } = useTranslation();
   
   // Estado de pestañas
   const [activeTabId, setActiveTabId] = useState<TabId>('home');
@@ -88,7 +90,7 @@ function AppContent() {
   // Manejadores
   // `toggleTheme` desde el contexto
 
-  const toggleLang = () => setLang(prev => prev === 'es' ? 'en' : 'es');
+  const toggleLang = () => setLang(prev => (prev === 'es' ? 'en' : 'es'));
 
   const closeTab = (e: React.MouseEvent, id: TabId) => {
     e.stopPropagation();
@@ -187,7 +189,7 @@ function AppContent() {
                       {/* Placeholders para el resto */}
                       {['education', 'about'].includes(app.id) && (
                         <div className="h-full flex items-center justify-center text-slate-500 dark:text-slate-400 p-8 text-center transition-colors duration-500">
-                            {app.id === 'about' && <p className="max-w-xl text-lg">{DATA.profile.about[lang]}</p>}
+                            {app.id === 'about' && <p className="max-w-xl text-lg">{t(DATA.profile.about)}</p>}
                             {app.id === 'education' && <p>View full details in PDF</p>}
                         </div>
                       )}

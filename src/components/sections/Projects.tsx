@@ -1,9 +1,11 @@
 import React from 'react';
 import { FolderOpen, ExternalLink, Github } from 'lucide-react';
 import { SectionProps } from '../../type';
+import { useTranslation } from '../../hooks/Hooks';
 
 // Projects: tarjetas con título, descripción, tech stack, logros clave y enlaces
-export const Projects: React.FC<SectionProps> = ({ data, lang }) => {
+export const Projects: React.FC<SectionProps> = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center h-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 p-8 animate-slide-up w-full max-w-6xl mx-auto">
@@ -21,7 +23,7 @@ export const Projects: React.FC<SectionProps> = ({ data, lang }) => {
 
                   <div className="min-w-0">
                     <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white group-hover:text-purple-600 transition-colors truncate">{project.title}</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{project.desc[lang]}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{t(project.desc)}</p>
                   </div>
                 </div>
 
@@ -53,7 +55,7 @@ export const Projects: React.FC<SectionProps> = ({ data, lang }) => {
               {project.achievements && project.achievements.length > 0 && (
                 <ul className="list-disc list-inside text-sm text-slate-700 dark:text-slate-300 mb-4">
                   {project.achievements.slice(0, 2).map((a, i) => (
-                    <li key={i}>{typeof a === 'string' ? a : (a[lang] || a.es || a.en)}</li>
+                    <li key={i}>{typeof a === 'string' ? a : t(a)}</li>
                   ))}
                 </ul>
               )}

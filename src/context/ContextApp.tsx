@@ -13,6 +13,15 @@ export const ThemeContext = createContext<ThemeContextValue>({
   toggleTheme: () => {},
 });
 
+// Contexto para el idioma de la app. Permitirá cambiar el idioma globalmente.
+export const LanguageContext = createContext<{
+  lang: 'es' | 'en';
+  setLang: (l: 'es' | 'en') => void;
+}>({
+  lang: 'es',
+  setLang: () => {},
+});
+
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
@@ -52,5 +61,20 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
+  );
+};
+
+// Un proveedor simple para exponer el idioma.
+export const LanguageProvider: React.FC<{ children: ReactNode; initial?: 'es' | 'en' }> = ({ children, initial = 'es' }) => {
+  const [lang, setLang] = useState<'es' | 'en'>(initial);
+
+  useEffect(() => {
+    try { localStorage.setItem('lang', lang); } catch {}
+  }, [lang]);
+
+  return (
+    <LanguageContext.Provider value={{ lang, setLang }}>
+      {children}
+    </LanguageContext.Provider>
   );
 };
