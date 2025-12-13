@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 
 import { DATA } from './translate';
-import { Language, TabId, AppConfig } from './type';
+import { TabId, AppConfig } from './type';
 import { Home } from './components/sections/Home';
 import { Experience } from './components/sections/Experience';
 import { Projects } from './components/sections/Projects';
@@ -90,7 +90,7 @@ function AppContent() {
   // Manejadores
   // `toggleTheme` desde el contexto
 
-  const toggleLang = () => setLang(prev => (prev === 'es' ? 'en' : 'es'));
+  const toggleLang = () => setLang(lang === 'es' ? 'en' : 'es');
 
   const closeTab = (e: React.MouseEvent, id: TabId) => {
     e.stopPropagation();

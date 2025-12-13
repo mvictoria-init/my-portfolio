@@ -32,6 +32,8 @@ export interface ProjectItem {
   desc: LocalizedText;
   tags: string[];
   link?: string;
+  repo?: string;
+  achievements?: LocalizedText[];
   color: string;
 }
 
@@ -67,7 +69,7 @@ export interface ContactItem {
 
 export interface SectionProps {
   data: PortfolioData;
-  lang: Language;
+  lang?: Language;
 }
 
 export interface AppConfig {
