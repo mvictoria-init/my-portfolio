@@ -27,7 +27,7 @@ const APPS: AppConfig[] = [
   { id: 'projects', label: 'Projects.tsx', icon: FolderOpen, color: 'text-blue-500' },
   { id: 'skills', label: 'Skills.tsx', icon: Palette, color: 'text-green-500' },
   { id: 'education', label: 'Education.tsx', icon: GraduationCap, color: 'text-yellow-500' },
-  { id: 'contact', label: 'Contact.tsx', icon: Mail, color: 'text-red-500' },
+  { id: 'contact', label: 'Contact.tsx', icon: Mail, color: 'text-pink-500' },
   // { id: 'about', label: 'About.tsx', icon: User, color: 'text-orange-500' }
 ];
 
@@ -129,9 +129,9 @@ function AppContent() {
       <div className="fixed inset-0 bg-fuchsia-400 dark:bg-indigo-950 z-0 transition-colors duration-500">
          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-purple-900/20 blur-[100px] animate-float transition-colors duration-500" />
          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-pink-900/20 blur-[100px] animate-float transition-colors duration-500" style={{ animationDelay: '2s' }} />
-         <FloatingParticle top="20%" left="10%" size="10px" color="#F472B6" delay="0s" duration="4s" />
-         <FloatingParticle top="70%" left="80%" size="15px" color="#818CF8" delay="1s" duration="6s" />
-         <FloatingParticle top="40%" left="60%" size="8px" color="#34D399" delay="2s" duration="5s" />
+         <FloatingParticle top="20%" left="10%" size="10px" color="#FBCFE8" delay="0s" duration="4s" />
+         <FloatingParticle top="70%" left="80%" size="15px" color="#C4B5FD" delay="1s" duration="6s" />
+         <FloatingParticle top="40%" left="60%" size="8px" color="#BBF7D0" delay="2s" duration="5s" />
       </div>
 
       {/* Lienzo de partículas (sobre el fondo, debajo de la ventana) */}

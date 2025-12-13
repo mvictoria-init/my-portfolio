@@ -63,25 +63,25 @@ export const DATA: PortfolioData = {
       desc: { es: "Plataforma web optimizada con React y Django.", en: "Optimized web platform with React and Django." },
       tags: ["React", "Django", "Tailwind"],
       link: "https://capymara.com",
-      color: "from-pink-500 to-rose-500"
+      color: "from-pink-300 to-purple-300"
     },
     {
       title: "Game Rewards API",
       desc: { es: "Backend robusto para gestión de misiones en juegos.", en: "Robust backend for game mission management." },
       tags: ["Python", "DRF", "PostgreSQL"],
-      color: "from-purple-500 to-indigo-500"
+      color: "from-violet-300 to-pink-300"
     },
     {
       title: "Doc Gen API",
       desc: { es: "API para generación automática de documentos Word.", en: "API for automated Word document generation." },
       tags: ["Python-docx", "API REST"],
-      color: "from-blue-500 to-cyan-500"
+      color: "from-rose-200 to-fuchsia-300"
     },
     {
       title: "CANTV Dashboard",
       desc: { es: "Sistema de gestión de energía y climatización.", en: "Energy and climate management system." },
       tags: ["Flutter", "Python", "SQL"],
-      color: "from-emerald-500 to-teal-500"
+      color: "from-fuchsia-300 to-pink-300"
     }
   ],
   skills: {

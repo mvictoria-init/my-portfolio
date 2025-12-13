@@ -22,7 +22,7 @@ export const Projects: React.FC<SectionProps> = ({ data }) => {
                   </div>
 
                   <div className="min-w-0">
-                    <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white group-hover:text-purple-600 transition-colors truncate">{project.title}</h3>
+                    <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white group-hover:text-violet-600 transition-colors truncate">{project.title}</h3>
                     <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 line-clamp-2">{t(project.desc)}</p>
                   </div>
                 </div>
@@ -45,7 +45,7 @@ export const Projects: React.FC<SectionProps> = ({ data }) => {
               {/* Tech stack chips (single-line, scrollable on overflow) */}
               <div className="flex gap-2 mb-3 overflow-x-auto whitespace-nowrap">
                 {project.tags.map((tag, tIdx) => (
-                  <span key={tIdx} className="inline-flex flex-shrink-0 items-center px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-300 shadow-sm">
+                  <span key={tIdx} className="inline-flex flex-shrink-0 items-center px-3 py-1 text-xs font-semibold rounded-full bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-sm">
                     <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{tag}</span>
                   </span>
                 ))}
