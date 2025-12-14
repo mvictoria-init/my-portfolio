@@ -5,9 +5,10 @@ import { useTranslation } from '../../hooks/Hooks';
 
 // Projects: tarjetas con título, descripción, tech stack, logros clave y enlaces
 export const Projects: React.FC<SectionProps> = ({ data }) => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   return (
-    <div className="flex items-center h-full">
+    <div className="flex flex-col items-center h-full">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white text-center my-6">{lang === 'es' ? 'Proyectos' : 'Projects'}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 p-8 animate-slide-up w-full max-w-6xl mx-auto">
         {data.projects.map((project, idx) => (
           <article key={idx} className="group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-2xl hover:shadow-2xl transition-all duration-300 border border-slate-300 dark:border-slate-700 transform hover:scale-[1.02] cursor-pointer">
