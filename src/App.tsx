@@ -52,6 +52,7 @@ function AppContent() {
   const [openTabs, setOpenTabs] = useState<TabId[]>(['home', 'experience', 'projects', 'skills']);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
+  const [isSwitching, setIsSwitching] = useState(false);
   
   // Referencias
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -99,28 +100,33 @@ function AppContent() {
 
   const scrollToSection = (id: TabId) => {
     setIsManualScrolling(true);
-    
-    // Si no está abierta, abrirla y scrollear
-    if (!openTabs.includes(id)) {
-      setOpenTabs(prev => {
-        // Mantenemos el orden original definido en APPS
-        const newTabs = [...prev, id];
-        return APPS.filter(app => newTabs.includes(app.id)).map(app => app.id);
-      });
-      
-      // Delay para permitir renderizado
-      setTimeout(() => {
+    setIsSwitching(true);
+
+    // small delay to let the "tab" animation start (scale/fade)
+    setTimeout(() => {
+      // Si no está abierta, abrirla y scrollear
+      if (!openTabs.includes(id)) {
+        setOpenTabs(prev => {
+          // Mantenemos el orden original definido en APPS
+          const newTabs = [...prev, id];
+          return APPS.filter(app => newTabs.includes(app.id)).map(app => app.id);
+        });
+
+        // Delay para permitir renderizado
+        setTimeout(() => {
+          const el = document.getElementById(`section-${id}`);
+          el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActiveTabId(id);
+          // terminar animación de pestaña
+          setTimeout(() => { setIsSwitching(false); setTimeout(() => setIsManualScrolling(false), 420); }, 300);
+        }, 100);
+      } else {
         const el = document.getElementById(`section-${id}`);
         el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setActiveTabId(id);
-        setTimeout(() => setIsManualScrolling(false), 800);
-      }, 100);
-    } else {
-      const el = document.getElementById(`section-${id}`);
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setActiveTabId(id);
-      setTimeout(() => setIsManualScrolling(false), 800);
-    }
+        setTimeout(() => { setIsSwitching(false); setTimeout(() => setIsManualScrolling(false), 420); }, 300);
+      }
+    }, 120);
   };
 
   return (
@@ -162,7 +168,10 @@ function AppContent() {
           <AddressBar activeTabId={activeTabId} />
 
           {/* 3. ÁREA DE DESPLAZAMIENTO */}
-          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-28">
+          <div
+            ref={scrollContainerRef}
+            className={`flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-28 transform transition-all duration-300 ${isSwitching ? 'opacity-80 scale-95 pointer-events-none' : 'opacity-100 scale-100'}`}
+          >
             {openTabs.length === 0 ? (
                <div className="h-full flex items-center justify-center text-slate-400 flex-col gap-4 transition-colors duration-500">
                  <AppWindow size={48} className="opacity-50"/>
