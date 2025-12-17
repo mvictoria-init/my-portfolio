@@ -10,6 +10,7 @@ import { Home } from './components/sections/Home';
 import { Experience } from './components/sections/Experience';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
+import { Education } from './components/sections/Education';
 import { Contact } from './components/sections/Contact';
 import { ThemeProvider, LanguageProvider } from './context/ContextApp';
 import { useTheme, useTranslation } from './hooks/Hooks';
@@ -193,13 +194,13 @@ function AppContent() {
                       {app.id === 'experience' && <Experience data={DATA} lang={lang} />}
                       {app.id === 'projects' && <Projects data={DATA} lang={lang} />}
                       {app.id === 'skills' && <Skills data={DATA} lang={lang} />}
+                      {app.id === 'education' && <Education data={DATA} lang={lang} />}
                       {app.id === 'contact' && <Contact data={DATA} lang={lang} />}
 
-                      {/* Placeholders para el resto */}
-                      {['education', 'about'].includes(app.id) && (
+                      {/* Placeholder for 'about' only (education now has its own component) */}
+                      {app.id === 'about' && (
                         <div className="h-full flex items-center justify-center text-slate-500 dark:text-slate-400 p-8 text-center transition-colors duration-500">
-                            {app.id === 'about' && <p className="max-w-xl text-lg">{t(DATA.profile.about)}</p>}
-                            {app.id === 'education' && <p>View full details in PDF</p>}
+                          <p className="max-w-xl text-lg">{t(DATA.profile.about)}</p>
                         </div>
                       )}
                     </div>
