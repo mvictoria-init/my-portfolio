@@ -25,7 +25,7 @@ export const TopBar: React.FC<TopBarProps> = ({ apps, openTabs, activeTabId, scr
         <div className="w-3 h-3 rounded-full bg-green-400" />
       </div>
 
-      {/* Render de pestañas abiertas (excepto 'home' si lo deseas ocultar) */}
+      {/* Render de pestañas abiertas (excepto 'home') */}
       {openTabs.filter(id => id !== 'home').map(tabId => {
         const app = apps.find(a => a.id === tabId);
         if (!app) return null;

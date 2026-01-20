@@ -2,7 +2,7 @@ import type { ComponentType, ReactNode } from 'react';
 
 export type Language = 'es' | 'en';
 export type Theme = 'light' | 'dark';
-export type TabId = 'home' | 'experience' | 'projects' | 'skills' | 'education' | 'contact' | 'about';
+export type TabId = 'home' | 'experience' | 'projects' | 'skills' | 'contact';
 
 export type LocalizedText = {
   es: ReactNode;

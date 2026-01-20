@@ -10,7 +10,6 @@ import { Home } from './components/sections/Home';
 import { Experience } from './components/sections/Experience';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
-import { Education } from './components/sections/Education';
 import { Contact } from './components/sections/Contact';
 import { ThemeProvider, LanguageProvider } from './context/ContextApp';
 import { useTheme, useTranslation } from './hooks/Hooks';
@@ -27,7 +26,6 @@ const APPS: AppConfig[] = [
   { id: 'experience', label: 'Experience.tsx', icon: Briefcase, color: 'text-purple-500' },
   { id: 'projects', label: 'Projects.tsx', icon: FolderOpen, color: 'text-blue-500' },
   { id: 'skills', label: 'Skills.tsx', icon: Palette, color: 'text-green-500' },
-  { id: 'education', label: 'Education.tsx', icon: GraduationCap, color: 'text-yellow-500' },
   { id: 'contact', label: 'Contact.tsx', icon: Mail, color: 'text-pink-500' },
   // { id: 'about', label: 'About.tsx', icon: User, color: 'text-orange-500' }
 ];
@@ -50,7 +48,7 @@ function AppContent() {
   
   // Estado de pestañas
   const [activeTabId, setActiveTabId] = useState<TabId>('home');
-  const [openTabs, setOpenTabs] = useState<TabId[]>(['home', 'experience', 'projects', 'skills']);
+  const [openTabs, setOpenTabs] = useState<TabId[]>(['home', 'experience', 'projects', 'skills', 'contact']);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
@@ -88,6 +86,7 @@ function AppContent() {
 
     return () => observer.disconnect();
   }, [openTabs, isManualScrolling]);
+  
 
   // Manejadores
   // `toggleTheme` desde el contexto
@@ -129,6 +128,18 @@ function AppContent() {
       }
     }, 120);
   };
+
+  // Escucha eventos personalizados para abrir una sección desde cualquier componente
+  useEffect(() => {
+    const handler = (ev: Event) => {
+      const custom = ev as CustomEvent;
+      const id = custom?.detail as TabId | undefined;
+      if (id) scrollToSection(id);
+    };
+
+    window.addEventListener('open-section', handler);
+    return () => window.removeEventListener('open-section', handler);
+  }, [openTabs, scrollToSection]);
 
   return (
     <div className={`h-screen w-screen overflow-hidden font-sans transition-colors duration-500 text-slate-900 dark:text-slate-200`}>
@@ -194,15 +205,10 @@ function AppContent() {
                       {app.id === 'experience' && <Experience data={DATA} lang={lang} />}
                       {app.id === 'projects' && <Projects data={DATA} lang={lang} />}
                       {app.id === 'skills' && <Skills data={DATA} lang={lang} />}
-                      {app.id === 'education' && <Education data={DATA} lang={lang} />}
+                      {/* Education tab removed */}
                       {app.id === 'contact' && <Contact data={DATA} lang={lang} />}
 
-                      {/* Placeholder for 'about' only (education now has its own component) */}
-                      {app.id === 'about' && (
-                        <div className="h-full flex items-center justify-center text-slate-500 dark:text-slate-400 p-8 text-center transition-colors duration-500">
-                          <p className="max-w-xl text-lg">{t(DATA.profile.about)}</p>
-                        </div>
-                      )}
+                      {/* 'about' section removed (not used) */}
                     </div>
                   </section>
                 );

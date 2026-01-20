@@ -71,8 +71,6 @@ export const Home: React.FC<SectionProps> = ({ data }) => {
           // Solo responder cuando la animación 'fallIn' termine
         if (ev.animationName === 'fallIn') {
           st.classList.add('float-active');
-          // eliminar este listener una vez manejado
-          st.removeEventListener('animationend', handler as any);
         }
       };
       st.addEventListener('animationend', handler as any);
@@ -104,10 +102,8 @@ export const Home: React.FC<SectionProps> = ({ data }) => {
                       'radial-gradient(circle at 60% 40%, rgba(124,58,237,0.6), rgba(236,72,153,0.28) 40%, transparent 75%)'
                 }}
               />
-
-              {/* Pegatinas alrededor del teléfono (estáticas, sin interacción) */}
               
-              {/* <removed: Sticker moved to Experience section> */}
+              {/* Pegatinas alrededor del teléfono (estáticas, sin interacción) */}
               <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -right-16 top-2 w-6 md:w-10 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.15s', ['--fall-duration' as any]:'1.1s', ['--fall-rotate' as any]:'8deg', ['--fall-x' as any]:'40px', ['--float-duration' as any]:'9s', ['--float-x' as any]:'10px', ['--float-rotate' as any]:'5deg'}} />
               <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -right-20 top-48 w-14 md:w-20 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.25s', ['--fall-duration' as any]:'1.2s', ['--fall-rotate' as any]:'-6deg', ['--fall-x' as any]:'60px', ['--float-duration' as any]:'8.5s', ['--float-x' as any]:'18px', ['--float-rotate' as any]:'8deg'}} />
               <img src={sticker5} alt="sticker" className="sticker sticker-smooth absolute -left-20 top-48 w-10 md:w-14 z-10 pointer-events-none" style={{['--fall-delay' as any]:'0.20s', ['--fall-duration' as any]:'1.05s', ['--fall-rotate' as any]:'12deg', ['--fall-x' as any]:'-50px', ['--float-duration' as any]:'9.2s', ['--float-x' as any]:'14px', ['--float-rotate' as any]:'10deg'}} />
@@ -121,9 +117,6 @@ export const Home: React.FC<SectionProps> = ({ data }) => {
         <div className="relative z-30 rounded-[28px] border-4 border-black/90 shadow-2xl overflow-hidden w-[240px] md:w-[260px] lg:w-[280px] bg-black flex items-center justify-center h-[60%]">
           <div className="relative w-[180px] md:w-[220px] lg:w-[240px] h-full bg-white overflow-hidden">
             <img src={profileImg} alt="Profile" className="w-full h-full object-cover" />
-
-            {/* punto de la cámara */}
-            <div className="absolute left-3 top-3 w-3 h-3 rounded-full bg-sky-300 ring-1 ring-white" />
 
             {/* botones laterales */}
             <div className="absolute -right-2 top-1/4 flex flex-col gap-2">
@@ -164,7 +157,21 @@ export const Home: React.FC<SectionProps> = ({ data }) => {
       <div className="flex flex-wrap gap-4 justify-center md:justify-start">
         <a href={data.profile.linkedin} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-[#0077b5] text-white"><Linkedin size={18} /> LinkedIn</a>
         <a href={data.profile.github} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-[#333] text-white"><Github size={18} /> GitHub</a>
-        <a href={`mailto:${data.profile.email}`} className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-linear-to-r from-pink-500 to-purple-600 text-white"><Mail size={18} /> Contact</a>
+        <button
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent('open-section', { detail: 'contact' }));
+            setTimeout(() => {
+              try {
+                window.open(`mailto:${data.profile.email}`, '_self');
+              } catch (e) {
+                window.location.href = `mailto:${data.profile.email}`;
+              }
+            }, 120);
+          }}
+          className="px-4 py-2 rounded-lg font-medium transition-transform hover:scale-105 flex items-center gap-2 shadow-md bg-linear-to-r from-pink-500 to-purple-600 text-white"
+        >
+          <Mail size={18} /> Contact
+        </button>
       </div>
     </div>
   </div>

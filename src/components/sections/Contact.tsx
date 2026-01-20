@@ -1,5 +1,5 @@
-import React from 'react';
-import { Mail, Linkedin, Github, Globe } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Linkedin, Github, Globe, Clipboard } from 'lucide-react';
 import { SectionProps, ContactItem } from '../../type';
 import { useTranslation } from '../../hooks/Hooks';
 
@@ -7,6 +7,7 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
   const contactData: ContactItem = data.contact;
   const profile = data.profile;
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
 
   // Obtener textos traducidos según el idioma
   const title = t(contactData.Title);
@@ -16,7 +17,7 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
   
   return (
     <div className="flex items-center h-full p-8">
-      <div className="max-w-2xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-10 md:p-16 border border-slate-300 dark:border-slate-700 animate-fade-in-up">
+      <div className="max-w-2xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 md:p-8 border border-slate-300 dark:border-slate-700 animate-fade-in-up relative">
         
         {/* Título y Subtítulo */}
         <h2 className="text-4xl font-extrabold text-center text-purple-600 dark:text-purple-400 mb-4">{title}</h2>
@@ -24,16 +25,89 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
 
         <div className="space-y-6">
           
-          {/* Email */}
-          <a href={`mailto:${profile.email}`} target="_blank" rel="noreferrer" className="group block">
-            <div className="flex items-center p-4 bg-white dark:bg-slate-700 rounded-xl shadow-sm transition-colors duration-300 hover:bg-purple-50 dark:hover:bg-slate-600">
-              <Mail size={24} className="text-purple-500 mr-4 shrink-0" />
-              <div className='flex flex-col items-start'>
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-400">{emailLabel}</span>
-                <span className="text-lg font-medium text-slate-900 dark:text-white group-hover:text-purple-600">{profile.email}</span>
+          {/* Email (copiar al portapapeles) */}
+          <div className="group block" role="group" aria-label={`Copiar correo ${profile.email}`}>
+            <div className="flex flex-col md:flex-row items-center md:items-start p-4 bg-white dark:bg-slate-700 rounded-xl shadow-sm transition-colors duration-300 hover:bg-purple-50 dark:hover:bg-slate-600">
+              <div className="mb-3 md:mb-0 md:mr-4 flex-shrink-0 mx-auto md:mx-0">
+                <Mail size={24} className="text-purple-500" />
+              </div>
+              <div className="flex flex-col items-center md:items-start min-w-0 flex-1">
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-400 text-center md:text-left">{emailLabel}</span>
+                <div className="w-full flex flex-col md:flex-row items-center md:items-center gap-3 mt-1">
+                  <span className="text-xs md:text-lg font-medium text-slate-900 dark:text-white group-hover:text-purple-600 break-all w-full leading-tight text-center md:text-left">{profile.email}</span>
+
+                  {/* Inline copy button for md+ */}
+                  <button
+                    type="button"
+                    onClick={async (ev) => {
+                      ev.stopPropagation();
+                      try {
+                        await navigator.clipboard.writeText(profile.email);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 1800);
+                      } catch (err) {
+                        try {
+                          const ta = document.createElement('textarea');
+                          ta.value = profile.email;
+                          document.body.appendChild(ta);
+                          ta.select();
+                          document.execCommand('copy');
+                          document.body.removeChild(ta);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 1800);
+                        } catch (e) {
+                          // eslint-disable-next-line no-alert
+                          alert(profile.email);
+                        }
+                      }
+                    }}
+                    className="hidden md:inline-flex p-2 rounded-md text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
+                    aria-label="Copiar correo"
+                  >
+                    <Clipboard size={18} />
+                  </button>
+                </div>
+
+                {/* Mobile copy button centered under email */}
+                <div className="w-full md:hidden mt-3 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={async (ev) => {
+                      ev.stopPropagation();
+                      try {
+                        await navigator.clipboard.writeText(profile.email);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 1800);
+                      } catch (err) {
+                        try {
+                          const ta = document.createElement('textarea');
+                          ta.value = profile.email;
+                          document.body.appendChild(ta);
+                          ta.select();
+                          document.execCommand('copy');
+                          document.body.removeChild(ta);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 1800);
+                        } catch (e) {
+                          // eslint-disable-next-line no-alert
+                          alert(profile.email);
+                        }
+                      }
+                    }}
+                    className="p-2 rounded-md text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors"
+                    aria-label="Copiar correo"
+                  >
+                    <Clipboard size={18} />
+                  </button>
+                </div>
               </div>
             </div>
-          </a>
+
+            {/* Toast */}
+            <div className={`absolute top-4 right-4 px-3 py-1 rounded-full bg-emerald-500 text-white text-xs shadow-sm transition-opacity ${copied ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+              Copiado
+            </div>
+          </div>
 
           {/* LinkedIn y GitHub */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -65,3 +139,5 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
     </div>
   );
 };
+
+export default Contact;
