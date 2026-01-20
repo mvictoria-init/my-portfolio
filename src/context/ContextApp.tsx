@@ -40,19 +40,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     try { root.setAttribute('data-theme', theme); } catch {}
     try { localStorage.setItem('theme', theme); } catch {}
     // Registros de depuración para ayudar a rastrear cambios de tema durante el desarrollo
-    // eslint-disable-next-line no-console
     console.log('[ThemeProvider] theme set to', theme);
     try {
       // muestra classList actual del root y cuenta de elementos con la clase 'dark'
-      // eslint-disable-next-line no-console
       console.log('[ThemeProvider] root.classList=', Array.from(root.classList).join(' '));
-      // eslint-disable-next-line no-console
       const darkEls = document.querySelectorAll('.dark');
-      // eslint-disable-next-line no-console
       console.log('[ThemeProvider] elements with .dark=', darkEls.length);
-    } catch (err) {
-      // ignorar
-    }
+    } catch (err) { console.error(err);}
   }, [theme]);
 
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');

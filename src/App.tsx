@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Home as HomeIcon, Briefcase, FolderOpen, Palette, GraduationCap, 
+  Home as HomeIcon, Briefcase, FolderOpen, Palette,
   Mail, AppWindow
 } from 'lucide-react';
 
@@ -27,10 +27,7 @@ const APPS: AppConfig[] = [
   { id: 'projects', label: 'Projects.tsx', icon: FolderOpen, color: 'text-blue-500' },
   { id: 'skills', label: 'Skills.tsx', icon: Palette, color: 'text-green-500' },
   { id: 'contact', label: 'Contact.tsx', icon: Mail, color: 'text-pink-500' },
-  // { id: 'about', label: 'About.tsx', icon: User, color: 'text-orange-500' }
 ];
-
-// FloatingParticle ahora está extraído en `src/components/ui/FloatingParticle.tsx`
 
 export default function App() {
   return (
@@ -102,7 +99,7 @@ function AppContent() {
     setIsManualScrolling(true);
     setIsSwitching(true);
 
-    // small delay to let the "tab" animation start (scale/fade)
+    // Pequeño retraso para permitir que comience la animación de "pestaña" (escala/desvanecimiento)
     setTimeout(() => {
       // Si no está abierta, abrirla y scrollear
       if (!openTabs.includes(id)) {
@@ -205,10 +202,7 @@ function AppContent() {
                       {app.id === 'experience' && <Experience data={DATA} lang={lang} />}
                       {app.id === 'projects' && <Projects data={DATA} lang={lang} />}
                       {app.id === 'skills' && <Skills data={DATA} lang={lang} />}
-                      {/* Education tab removed */}
                       {app.id === 'contact' && <Contact data={DATA} lang={lang} />}
-
-                      {/* 'about' section removed (not used) */}
                     </div>
                   </section>
                 );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FolderOpen, ExternalLink, Github } from 'lucide-react';
+import { FolderOpen } from 'lucide-react';
 import { SectionProps } from '../../type';
 import { useTranslation } from '../../hooks/Hooks';
 
@@ -29,21 +29,10 @@ export const Projects: React.FC<SectionProps> = ({ data }) => {
                 </div>
 
                 <div className="flex items-center gap-2 ml-4">
-                  {project.repo && (
-                    <a href={project.repo} target="_blank" rel="noreferrer" className="p-2 rounded-md text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" title="Repository">
-                      <Github size={18} />
-                    </a>
-                  )}
-
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noreferrer" className="p-2 rounded-md text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" title="Live demo">
-                      <ExternalLink size={18} />
-                    </a>
-                  )}
                 </div>
               </div>
 
-              {/* Tech stack chips (single-line, scrollable on overflow) */}
+              {/* Tech stack chips (de una sola línea, desplazables en caso de desbordamiento) */}
               <div className="flex gap-2 mb-3 overflow-x-auto whitespace-nowrap">
                 {project.tags.map((tag, tIdx) => (
                   <span key={tIdx} className="inline-flex flex-shrink-0 items-center px-3 py-1 text-xs font-semibold rounded-full bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-sm">
@@ -52,20 +41,6 @@ export const Projects: React.FC<SectionProps> = ({ data }) => {
                 ))}
               </div>
 
-              {/* Achievements (1-2) */}
-              {project.achievements && project.achievements.length > 0 && (
-                <ul className="list-disc list-inside text-sm text-slate-700 dark:text-slate-300 mb-4">
-                  {project.achievements.slice(0, 2).map((a, i) => (
-                    <li key={i}>{typeof a === 'string' ? a : t(a)}</li>
-                  ))}
-                </ul>
-              )}
-
-              {/* Footer: small tags and actions placeholder */}
-              <div className="flex items-center justify-between">
-                <div />
-                <div className="text-xs text-slate-400">{project.link ? 'Ver demo' : ''}</div>
-              </div>
             </div>
           </article>
         ))}
