@@ -2,8 +2,8 @@ import React from 'react';
 import { ArrowLeft, ArrowRight, RotateCw, Lock } from 'lucide-react';
 import { TabId } from '../../type';
 
-// Barra de dirección simulada (Address Bar)
-// - Recibe `activeTabId` para mostrar la ruta actual
+// Simulated address bar (Address Bar)
+// - Receives `activeTabId` to display the current path
 type Props = {
   activeTabId: TabId;
 };

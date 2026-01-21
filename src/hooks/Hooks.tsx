@@ -9,13 +9,14 @@ export function useTheme() {
 export function useTranslation() {
   const langCtx = useContext(LanguageContext);
 
+  // Hook that returns a translation helper bound to the context language
   const t = (val: any) => {
     if (val == null) return '';
-    // si es string simple
+    // if it's a simple string
     if (typeof val === 'string') return val;
-    // si es array de LocalizedText -> map/return array
+    // if it's an array of LocalizedText -> map/return array
     if (Array.isArray(val)) return val.map(v => (v && (v[langCtx.lang] ?? v.es ?? v.en)));
-    // si es objeto con es/en
+    // if it's an object with es/en
     if (typeof val === 'object') return val[langCtx.lang] ?? val.es ?? val.en ?? '';
     return String(val);
   };

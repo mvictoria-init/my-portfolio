@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 
-// Pastel / Paleta iridiscente inspirada en la muestra
+// Pastel / iridescent palette inspired by the design sample
 const COLORS = ['#FFD1E6', '#D6E8FF', '#EAD7FF', '#CFFFEA', '#FFE6CC'];
 
 type Bubble = {
   x: number;
   y: number;
   r: number;
-  vy: number; // velocidad vertical (negativa para arriba)
-  angle: number; // para oscilación horizontal
+  vy: number; // vertical velocity (negative = upwards)
+  angle: number; // used for horizontal oscillation
   angularSpeed: number;
   color: string;
   alpha: number;
@@ -22,14 +22,14 @@ const ParticlesBg: React.FC<{ dark?: boolean; count?: number }> = ({ dark, count
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const C = ctx; // alias para contexto no nulo
+    const C = ctx; // alias for the non-null context
 
     let width = window.innerWidth;
     let height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
 
-    // Ajuste la apariencia de las partículas según el tema para mejorar la visibilidad en el modo claro
+    // Adjust particle appearance based on the theme to improve visibility in light mode
     const settings = dark
       ? { rMin: 4, rMax: 14, alphaMin: 0.18, alphaMax: 0.55, vyMin: 0.15, vyMax: 0.65, shadowMul: 0.45 }
       : { rMin: 6, rMax: 20, alphaMin: 0.45, alphaMax: 0.95, vyMin: 0.08, vyMax: 0.45, shadowMul: 0.7 };
@@ -62,7 +62,7 @@ const ParticlesBg: React.FC<{ dark?: boolean; count?: number }> = ({ dark, count
     }
 
     function drawBubble(p: Bubble) {
-      // degradado radial para una burbuja brillante
+      // radial gradient for a glossy bubble
       const grad = C.createRadialGradient(p.x - p.r * 0.25, p.y - p.r * 0.35, p.r * 0.08, p.x, p.y, p.r);
       const baseColor = p.color;
       grad.addColorStop(0, `rgba(255,255,255,${0.95 * p.alpha})`);
@@ -77,7 +77,7 @@ const ParticlesBg: React.FC<{ dark?: boolean; count?: number }> = ({ dark, count
       C.fillStyle = grad;
       C.fill();
 
-      // Borde exterior sutil para facilitar la lectura contra fondos brillantes (modo claro)
+      // Subtle outer stroke to improve readability against bright backgrounds (light mode)
       if (!dark) {
         C.lineWidth = Math.max(0.5, p.r * 0.08);
         C.strokeStyle = hexToRgba('#000000', 0.04 * p.alpha);
@@ -86,7 +86,7 @@ const ParticlesBg: React.FC<{ dark?: boolean; count?: number }> = ({ dark, count
 
       C.restore();
 
-      // Resaltado reflectante sutil (suave)
+      // Subtle reflective highlight (soft)
       C.save();
       C.beginPath();
       C.fillStyle = `rgba(255,255,255,${(dark ? 0.55 : 0.65) * p.alpha})`;
@@ -94,9 +94,9 @@ const ParticlesBg: React.FC<{ dark?: boolean; count?: number }> = ({ dark, count
       C.fill();
       C.restore();
 
-      // Brillo iridiscente: gradiente lineal de alfa bajo con un compuesto 'más claro'
+      // Iridescent sheen: low-alpha linear gradient with a 'lighter' composite
       C.save();
-      // Mantiene un brillo iridiscente; un poco más fuerte en modo claro
+      // Keeps an iridescent sheen; slightly stronger in light mode
       C.globalCompositeOperation = 'lighter';
       const lg = C.createLinearGradient(p.x - p.r, p.y - p.r, p.x + p.r, p.y + p.r);
       const sheenMul = dark ? 0.06 : 0.12;
@@ -119,7 +119,7 @@ const ParticlesBg: React.FC<{ dark?: boolean; count?: number }> = ({ dark, count
       particles.forEach(p => {
         p.angle += p.angularSpeed;
         p.x += Math.sin(p.angle) * 0.6;
-        p.y += p.vy; // movimiento ascendente
+        p.y += p.vy; // upward movement
 
         if (p.y + p.r < -50) {
           p.y = height + Math.random() * 60;

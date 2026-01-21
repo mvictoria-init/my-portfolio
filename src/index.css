@@ -12,13 +12,13 @@
   }
 }
 
-/* Barra de desplazamiento personalizada */
+./* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 .dark ::-webkit-scrollbar-thumb { background: #475569; }
 
-/* Ajuste de scroll (snap) */
+/* Scroll snap settings */
 .snap-container {
   scroll-snap-type: y mandatory;
 }
@@ -27,19 +27,19 @@
   scroll-snap-stop: always;
 }
 
-/* Animación de caída de stickers */
+/* Sticker fall animation */
 @keyframes fallIn {
   0% {
     transform: translateX(var(--fall-x, 0px)) translateY(-90px) rotate(var(--fall-rotate, -6deg)) scale(.98);
     opacity: 0;
   }
   60% {
-    /* paso intermedio suave */
+    /* smooth mid-step */
     transform: translateX(calc(var(--fall-x, 0px) * 0.10)) translateY(8px) rotate(calc(var(--fall-rotate, -6deg) * 0.2)) scale(1.015);
     opacity: 1;
   }
   85% {
-    /* aproximación final más gradual */
+  /* gentler final approach */
     transform: translateX(calc(var(--fall-x, 0px) * 0.04)) translateY(2px) rotate(calc(var(--fall-rotate, -6deg) * 0.08)) scale(1.005);
     opacity: 1;
   }
@@ -53,30 +53,30 @@
   }
 }
 
-.sticker {
+  .sticker {
   transform-origin: center;
-  /* solo la animación de caída por defecto; la flotación se activa dinámicamente */
+  /* default fall animation only; floating is activated dynamically */
   animation: fallIn var(--fall-duration, 2.6s) cubic-bezier(0.22, 1, 0.36, 1) var(--fall-delay, 0s) both;
   will-change: transform, opacity;
 }
 
-/* Variante más suave de la animación para stickers específicos (p. ej. sticker5) */
+./* Smoother variant of the animation for specific stickers (e.g. sticker5) */
 .sticker-smooth {
   transform-origin: center;
-  /* variante extra suave: solo caída más lenta; la flotación se activa después vía JS */
+  /* extra-smooth variant: slower fall only; floating is activated afterwards via JS */
   transform: translateZ(0);
   animation: fallIn var(--fall-duration, 3s) cubic-bezier(0.23, 0.8, 0.32, 1) var(--fall-delay, 0s) both;
-  /* transición final para suavizar micro-saltos al terminar la animación */
+  /* final transition to smooth micro-jumps when the animation ends */
   transition: transform 420ms cubic-bezier(0.22,0.9,0.35,1);
   will-change: transform, opacity;
 }
 
-  /* Flotación leve y oscilante para dar más movilidad a las burbujas */
+  /* Gentle floating and oscillation to add more motion to bubbles */
 
 @keyframes float {
-    /* Iniciar la animación de flotación exactamente en el estado final de 'fallIn'
-      (sin offset) para evitar saltos al comenzar la flotación. Luego aplicar una
-      oscilación suave. */
+    /* Start the floating animation exactly at the final state of 'fallIn'
+      (no offset) to avoid jumps when beginning the float. Then apply a
+      smooth oscillation. */
     0% { transform: translateX(0px) translateY(0px) rotate(0deg) scale(1); }
   25% { transform: translateX(calc(var(--float-x, 12px) * 0.5)) translateY(-6px) rotate(calc(var(--float-rotate, 6deg) * 0.35)); }
   50% { transform: translateX(calc(var(--float-x, 12px) * -0.9)) translateY(3px) rotate(calc(var(--float-rotate, 6deg) * -0.55)); }
@@ -84,15 +84,15 @@
   100% { transform: translateX(0px) translateY(0px) rotate(0deg) scale(1); }
 }
 
-/* Clase que activa la animación de flotación; se añade dinámicamente cuando la caída termina */
+/* Class that enables the floating animation; added dynamically when the fall ends */
 .sticker.float-active {
-    /* No re-declarar `fallIn` aquí — ya se ejecutó. Volver a añadirla reiniciaría
-      la caída y provocaría pausas/saltos. Solo iniciar la animación `float`
-      inmediatamente (sin retraso). */
+    /* Do not re-declare `fallIn` here — it already ran. Re-adding it would
+      restart the fall and cause pauses/jumps. Just start the `float`
+      animation immediately (no delay). */
   animation: float var(--float-duration, 8s) ease-in-out 0s infinite;
   will-change: transform;
 }
-/* Cursor de escritura (caret) */
+/* Typing caret */
 @keyframes blinkCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .type-caret::after {
   content: '';

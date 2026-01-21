@@ -19,8 +19,8 @@ import TopBar from './components/layout/TopBar';
 import AddressBar from './components/layout/AddressBar';
 import Dock from './components/layout/Dock';
 
-// --- CONFIGURACIÓN DE APPS ---
-// Define el orden y metadatos de las pestañas
+// --- APPS CONFIGURATION ---
+// Defines the order and metadata for the app tabs
 const APPS: AppConfig[] = [
   { id: 'home', label: 'Home.tsx', icon: HomeIcon, color: 'text-pink-500' },
   { id: 'experience', label: 'Experience.tsx', icon: Briefcase, color: 'text-purple-500' },
@@ -43,25 +43,25 @@ function AppContent() {
   const { theme, toggleTheme } = useTheme();
   const { lang, setLang } = useTranslation();
   
-  // Estado de pestañas
+  // Tabs state
   const [activeTabId, setActiveTabId] = useState<TabId>('home');
   const [openTabs, setOpenTabs] = useState<TabId[]>(['home', 'experience', 'projects', 'skills', 'contact']);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
   
-  // Referencias
+  // Refs
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<Record<TabId, HTMLElement | null>>({} as Record<TabId, HTMLElement | null>);
   
-  // El tema lo maneja ThemeProvider (añade/quita la clase `dark` y lo guarda en localStorage)
+  // Theme is managed by ThemeProvider (adds/removes the `dark` class and persists in localStorage)
 
-  // Inicialización
+  // Initialization
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
-  // Sincronizar la ruta del navegador con la pestaña activa
+  // Sync browser path with the active tab
   useEffect(() => {
     const path = `/${activeTabId}`;
     try {
@@ -71,7 +71,7 @@ function AppContent() {
     }
   }, [activeTabId]);
 
-  // Al cargar, si la ruta contiene una sección válida, abrirla
+  // On load, if the path contains a valid section, open it
   useEffect(() => {
     const p = window.location.pathname.replace(/^\//, '');
     if (APPS.some(a => a.id === (p as TabId))) {
@@ -140,8 +140,8 @@ function AppContent() {
   }, [openTabs, isManualScrolling, activeTabId]);
 
 
-  // Manejadores
-  // `toggleTheme` desde el contexto
+  // Handlers
+  // `toggleTheme` comes from the context
 
   const toggleLang = () => setLang(lang === 'es' ? 'en' : 'es');
 
@@ -154,9 +154,9 @@ function AppContent() {
     setIsManualScrolling(true);
     setIsSwitching(true);
 
-    // Pequeño retraso para permitir que comience la animación de "pestaña" (escala/desvanecimiento)
+      // Small delay to allow the tab animation (scale/fade) to start
     setTimeout(() => {
-      // Si no está abierta, abrirla y scrollear
+      // If it's not open, open it and scroll to it
       if (!openTabs.includes(id)) {
         setOpenTabs(prev => {
           // Mantenemos el orden original definido en APPS
@@ -182,7 +182,7 @@ function AppContent() {
   };
 
 
-  // Escucha eventos personalizados para abrir una sección desde cualquier componente
+  // Listen for custom events to open a section from any component
   useEffect(() => {
     const handler = (ev: Event) => {
       const custom = ev as CustomEvent;
@@ -196,7 +196,7 @@ function AppContent() {
 
   return (
     <div className={`h-screen w-screen overflow-hidden font-sans transition-colors duration-500 text-slate-900 dark:text-slate-200`}>
-      {/* CAPA DE FONDO */}
+      {/* BACKGROUND LAYER */}
       <div className="fixed inset-0 bg-fuchsia-400 dark:bg-indigo-950 z-0 transition-colors duration-500">
          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-purple-900/20 blur-[100px] animate-float transition-colors duration-500" />
          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-300 dark:bg-pink-900/20 blur-[100px] animate-float transition-colors duration-500" style={{ animationDelay: '2s' }} />
@@ -205,18 +205,18 @@ function AppContent() {
          <FloatingParticle top="40%" left="60%" size="8px" color="#BBF7D0" delay="2s" duration="5s" />
       </div>
 
-      {/* Lienzo de partículas (sobre el fondo, debajo de la ventana) */}
+      {/* Particles canvas (over background, below the main window) */}
       <div className="absolute inset-0 pointer-events-none z-10">
         <ParticlesBg dark={theme === 'dark'} />
       </div>
 
-      {/* ÁREA PRINCIPAL */}
+      {/* MAIN AREA */}
       <div className={`relative z-14 h-full flex flex-col items-center justify-center p-3 md:p-5 max-[382px]:p-1 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
         
-        {/* VENTANA DEL NAVEGADOR */}
+        {/* BROWSER WINDOW */}
         <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[80vh] max-[382px]:h-[92vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
           
-          {/* 1. BARRA SUPERIOR (pestañas y controles) */}
+          {/* 1. TOP BAR (tabs and controls) */}
           <TopBar
             apps={APPS}
             openTabs={openTabs}
@@ -229,13 +229,13 @@ function AppContent() {
             toggleTheme={toggleTheme}
           />
 
-          {/* 2. BARRA DE DIRECCIÓN (extraído) */}
+          {/* 2. ADDRESS BAR (extracted) */}
           <AddressBar activeTabId={activeTabId} />
 
-          {/* 3. ÁREA DE DESPLAZAMIENTO */}
+          {/* 3. SCROLLING AREA */}
           <div
             ref={scrollContainerRef}
-            className={`flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-24 transform transition-all duration-300 ${isSwitching ? 'opacity-80 scale-95 pointer-events-none' : 'opacity-100 scale-100'}`}
+            className={`flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container pb-24 transform transition-all duration-300 ${isSwitching ? 'opacity-80 scale-95 pointer-events-none' : 'opacity-100 scale-100'}`}
           >
             {openTabs.length === 0 ? (
                <div className="h-full flex items-center justify-center text-slate-400 flex-col gap-4 transition-colors duration-500">
@@ -268,7 +268,7 @@ function AppContent() {
           </div>
         </div>
 
-        {/* 4. DOCK (extraído) */}
+        {/* 4. DOCK (extracted) */}
         <Dock apps={APPS} openTabs={openTabs} activeTabId={activeTabId} scrollToSection={scrollToSection} />
 
       </div>

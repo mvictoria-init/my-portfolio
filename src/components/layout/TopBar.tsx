@@ -3,7 +3,7 @@ import type { AppConfig, TabId, Language } from '../../type';
 import { X } from 'lucide-react';
 import { ThemeToggle } from '../ThemeToggle';
 
-// Barra superior que muestra pestañas, controles de idioma y tema
+// Top bar showing tabs, language and theme controls
 interface TopBarProps {
   apps: AppConfig[];
   openTabs: TabId[];

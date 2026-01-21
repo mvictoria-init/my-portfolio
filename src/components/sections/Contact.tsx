@@ -9,7 +9,7 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
-  // Obtener textos traducidos según el idioma
+  // Get translated texts according to the current language
   const title = t(contactData.Title);
   const subtitle = t(contactData.Subtitle);
   const emailLabel = t(contactData.emailLabel);
@@ -19,13 +19,13 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
     <div className="flex items-center h-full p-8">
       <div className="max-w-4xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 md:p-8 border border-slate-300 dark:border-slate-700 animate-fade-in-up relative">
         
-        {/* Título y Subtítulo */}
+        {/* Title and subtitle */}
         <h2 className="text-4xl max-[322px]:text-3xl max-[284px]:text-2xl font-extrabold text-center text-purple-600 dark:text-purple-400 mb-4">{title}</h2>
         <p className="text-center text-slate-700 dark:text-slate-300 mb-10 text-lg max-[322px]:text-base max-[284px]:text-sm">{subtitle}</p>
 
         <div className="space-y-6">
           
-          {/* Email (copiar al portapapeles) */}
+          {/* Email (copy to clipboard) */}
           <div className="group block" role="group" aria-label={`Copiar correo ${profile.email}`}>
             <div className="flex flex-col md:flex-row items-center md:items-start p-4 bg-white dark:bg-slate-700 rounded-xl shadow-sm transition-colors duration-300 hover:bg-purple-50 dark:hover:bg-slate-600">
               <div className="mb-3 md:mb-0 md:mr-4 flex-shrink-0 mx-auto md:mx-0">

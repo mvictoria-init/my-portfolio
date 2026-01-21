@@ -9,9 +9,9 @@ type Props = {
   scrollToSection: (id: TabId) => void;
 };
 
-// Dock (barra inferior con iconos)
-// para mantener la apariencia exacta. Recibe la lista de apps, cuáles están
-// abiertas y la pestaña activa. Al hacer click invoca `scrollToSection`.
+// Dock (bottom bar with icons)
+// Keeps the exact appearance. Receives the apps list, which are open,
+// and the active tab. Clicking invokes `scrollToSection`.
 const Dock: React.FC<Props> = ({ apps, openTabs, activeTabId, scrollToSection }) => {
   return (
     <div className="fixed bottom-6 left-1/2 right-auto z-50 flex justify-center pointer-events-auto mb-0 -translate-x-1/2 max-[236px]:hidden">

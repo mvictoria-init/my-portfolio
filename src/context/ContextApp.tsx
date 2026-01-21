@@ -13,7 +13,7 @@ export const ThemeContext = createContext<ThemeContextValue>({
   toggleTheme: () => {},
 });
 
-// Contexto para el idioma de la app. Permitirá cambiar el idioma globalmente.
+// Context for the app language. Allows changing the language globally.
 export const LanguageContext = createContext<{
   lang: 'es' | 'en';
   setLang: (l: 'es' | 'en') => void;
@@ -36,13 +36,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const root = document.documentElement;
     if (theme === 'dark') root.classList.add('dark');
     else root.classList.remove('dark');
-    // Agrega un atributo data para facilitar la depuración en el inspector DOM
+    // Add a data attribute to ease debugging in the DOM inspector
     try { root.setAttribute('data-theme', theme); } catch {}
     try { localStorage.setItem('theme', theme); } catch {}
-    // Registros de depuración para ayudar a rastrear cambios de tema durante el desarrollo
+    // Debug logs to help track theme changes during development
     console.log('[ThemeProvider] theme set to', theme);
     try {
-      // muestra classList actual del root y cuenta de elementos con la clase 'dark'
+      // log current root.classList and count of elements with the 'dark' class
       console.log('[ThemeProvider] root.classList=', Array.from(root.classList).join(' '));
       const darkEls = document.querySelectorAll('.dark');
       console.log('[ThemeProvider] elements with .dark=', darkEls.length);
@@ -58,7 +58,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   );
 };
 
-// Un proveedor simple para exponer el idioma.
+// A simple provider to expose the app language.
 export const LanguageProvider: React.FC<{ children: ReactNode; initial?: 'es' | 'en' }> = ({ children, initial = 'es' }) => {
   const [lang, setLang] = useState<'es' | 'en'>(initial);
 

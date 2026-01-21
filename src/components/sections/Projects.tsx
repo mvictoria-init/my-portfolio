@@ -3,7 +3,7 @@ import { FolderOpen, ExternalLink } from 'lucide-react';
 import { SectionProps } from '../../type';
 import { useTranslation } from '../../hooks/Hooks';
 
-// Projects: tarjetas con título, descripción, tech stack, logros clave y enlaces
+// Projects: cards with title, description, tech stack, key achievements and links
 export const Projects: React.FC<SectionProps> = ({ data }) => {
   const { t, lang } = useTranslation();
   return (
@@ -14,7 +14,7 @@ export const Projects: React.FC<SectionProps> = ({ data }) => {
           const color = project.color ?? 'from-pink-300 to-purple-300';
           return (
           <article key={idx} className="group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-2xl hover:shadow-2xl transition-all duration-300 border border-slate-300 dark:border-slate-700 transform hover:scale-[1.02] cursor-pointer">
-            {/* Barra de color superior */}
+            {/* Top color bar */}
             <div className={`h-2 w-full bg-gradient-to-r ${color} group-hover:h-3 transition-all duration-300`} />
 
             <div className="p-6 max-[314px]:p-3">
@@ -46,7 +46,7 @@ export const Projects: React.FC<SectionProps> = ({ data }) => {
                 </div>
               </div>
 
-              {/* Tech stack chips (de una sola línea, desplazables en caso de desbordamiento) */}
+              {/* Tech stack chips (single-line, scrollable if overflow) */}
               <div className="flex gap-2 mb-3 overflow-x-auto whitespace-nowrap">
                 {project.tags.map((tag, tIdx) => (
                   <span key={tIdx} className="inline-flex flex-shrink-0 items-center px-2 py-0.5 text-[11px] font-semibold rounded-full bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-sm max-[314px]:px-2 max-[314px]:py-0.5 max-[314px]:text-[9px]">

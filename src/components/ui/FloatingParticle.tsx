@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Componente reutilizable para partículas flotantes de fondo
+// Reusable component for floating background particles
 export interface FloatingParticleProps {
   delay?: string;
   duration?: string;
