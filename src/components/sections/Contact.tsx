@@ -17,7 +17,7 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
   
   return (
     <div className="flex items-center h-full p-8">
-      <div className="max-w-2xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 md:p-8 border border-slate-300 dark:border-slate-700 animate-fade-in-up relative">
+      <div className="max-w-4xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 md:p-8 border border-slate-300 dark:border-slate-700 animate-fade-in-up relative">
         
         {/* Título y Subtítulo */}
         <h2 className="text-4xl max-[322px]:text-3xl max-[284px]:text-2xl font-extrabold text-center text-purple-600 dark:text-purple-400 mb-4">{title}</h2>

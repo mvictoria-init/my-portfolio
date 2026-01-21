@@ -64,10 +64,8 @@ export const Experience: React.FC<SectionProps> = ({ data }) => {
         <div key={idx} className="relative pl-8 group reveal-item transition-all duration-1000 ease-out will-change-transform">
           {/* Imagen en el punto de la línea de tiempo (reemplaza el punto) */}
           <img src={img6} alt={`${job.company} logo`} className="absolute top-0 -left-[11px] w-6 h-6 rounded-full object-cover z-10 shadow-sm" />
-          {/* Línea de tiempo (oculta para último) */}
-          {idx !== data.experience.length - 1 && (
-            <div className="absolute top-0 left-0 w-0.5 h-full bg-purple-200 dark:bg-purple-800 transition-colors group-hover:bg-purple-500 z-0" />
-          )}
+          {/* Línea de tiempo (se muestra siempre) */}
+          <div className="absolute top-0 left-0 w-0.5 h-full bg-purple-200 dark:bg-purple-800 transition-colors group-hover:bg-purple-500 z-0" />
           {/* Tarjeta de trabajo */}
           <div className="bg-white dark:bg-slate-800 backdrop-blur-sm p-6 rounded-2xl shadow-2xl border border-slate-300 dark:border-slate-700 hover:shadow-2xl transition-all duration-300 hover:bg-white dark:hover:bg-slate-800 relative z-10">
             <div className="flex flex-wrap justify-between items-start mb-4 gap-2">
@@ -77,7 +75,7 @@ export const Experience: React.FC<SectionProps> = ({ data }) => {
               </div>
               <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 rounded-full text-xs font-mono shadow-inner">{job.period}</span>
             </div>
-              <p className="text-slate-800 dark:text-slate-300 mb-4">{t(job.desc)}</p>
+              <p className="text-slate-800 dark:text-slate-300 mb-4 line-clamp-2 max-[264px]:line-clamp-6">{t(job.desc)}</p>
             {/* Logros */}
             <div className="space-y-2 mb-4 border-l-2 border-yellow-300/50 dark:border-yellow-700/50 pl-3">
                 {job.achievements.map((ach, aIdx) => (

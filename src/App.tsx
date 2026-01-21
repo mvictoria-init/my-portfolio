@@ -61,19 +61,51 @@ function AppContent() {
     setIsLoaded(true);
   }, []);
 
+  // Sincronizar la ruta del navegador con la pestaña activa
+  useEffect(() => {
+    const path = `/${activeTabId}`;
+    try {
+      window.history.replaceState(null, '', path);
+    } catch (e) {
+      // no bloquear si falta history
+    }
+  }, [activeTabId]);
+
+  // Al cargar, si la ruta contiene una sección válida, abrirla
+  useEffect(() => {
+    const p = window.location.pathname.replace(/^\//, '');
+    if (APPS.some(a => a.id === (p as TabId))) {
+      const id = p as TabId;
+      if (!openTabs.includes(id)) setOpenTabs(prev => [...prev, id]);
+      setActiveTabId(id);
+      // scroll to it after a short delay to allow refs to attach
+      setTimeout(() => {
+        const el = document.getElementById(`section-${id}`);
+        el?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }, 150);
+    }
+  }, []);
+
   // Observador de scroll (spy)
   useEffect(() => {
+    const rootEl = scrollContainerRef.current;
+    if (!rootEl) return;
+
+    // Use rootMargin and low threshold so sections become active reliably
     const observer = new IntersectionObserver(
       (entries) => {
         if (isManualScrolling) return;
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const tabId = entry.target.id.replace('section-', '') as TabId;
+            // debug log for intersection
+            // eslint-disable-next-line no-console
+            console.debug('[APP] observer intersect ->', tabId);
             setActiveTabId(tabId);
           }
         });
       },
-      { root: scrollContainerRef.current, threshold: 0.6 }
+      { root: rootEl, rootMargin: '0px 0px -40% 0px', threshold: 0 }
     );
 
     APPS.forEach(app => {
@@ -82,8 +114,8 @@ function AppContent() {
     });
 
     return () => observer.disconnect();
-  }, [openTabs, isManualScrolling]);
-  
+  }, [openTabs, isManualScrolling, scrollContainerRef.current]);
+
 
   // Manejadores
   // `toggleTheme` desde el contexto
@@ -125,6 +157,7 @@ function AppContent() {
       }
     }, 120);
   };
+
 
   // Escucha eventos personalizados para abrir una sección desde cualquier componente
   useEffect(() => {
