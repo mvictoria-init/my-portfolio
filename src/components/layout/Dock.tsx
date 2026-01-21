@@ -14,8 +14,8 @@ type Props = {
 // abiertas y la pestaña activa. Al hacer click invoca `scrollToSection`.
 const Dock: React.FC<Props> = ({ apps, openTabs, activeTabId, scrollToSection }) => {
   return (
-    <div className="fixed bottom-12 left-0 right-0 z-50 flex justify-center pointer-events-none md:pointer-events-auto mb-[2px] md:bottom-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:mb-0">
-      <div className="w-[min(96%,1024px)] mx-auto pointer-events-auto flex items-center gap-3 px-3 py-3 pb-6 bg-white/12 dark:bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl transition-all duration-300 md:w-auto md:mx-0 md:px-4 md:py-3 md:pb-4 md:bg-white/20 md:dark:bg-black/40 md:backdrop-blur-2xl md:rounded-2xl md:border md:border-white/20 md:shadow-2xl md:hover:scale-105">
+    <div className="fixed bottom-8 left-0 right-0 z-50 flex justify-center pointer-events-none md:pointer-events-auto mb-[2px] md:bottom-6 md:left-1/2 md:right-auto md:-translate-x-1/2 md:mb-0">
+      <div className="w-[min(96%,1024px)] mx-auto pointer-events-auto flex items-center gap-3 px-3 py-3 pb-4 bg-white/12 dark:bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl transition-all duration-300 md:w-auto md:mx-0 md:px-4 md:py-3 md:pb-4 md:bg-white/20 md:dark:bg-black/40 md:backdrop-blur-2xl md:rounded-2xl md:border md:border-white/20 md:shadow-2xl md:hover:scale-105">
         {apps.map((app) => {
           const isOpen = openTabs.includes(app.id);
           const isActive = activeTabId === app.id;

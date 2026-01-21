@@ -155,10 +155,10 @@ function AppContent() {
       </div>
 
       {/* ÁREA PRINCIPAL */}
-      <div className={`relative z-14 h-full flex flex-col items-center justify-center p-4 md:p-6 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+      <div className={`relative z-14 h-full flex flex-col items-center justify-center p-3 md:p-5 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
         
         {/* VENTANA DEL NAVEGADOR */}
-        <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[85vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
+        <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[80vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
           
           {/* 1. BARRA SUPERIOR (pestañas y controles) */}
           <TopBar
@@ -179,7 +179,7 @@ function AppContent() {
           {/* 3. ÁREA DE DESPLAZAMIENTO */}
           <div
             ref={scrollContainerRef}
-            className={`flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-28 transform transition-all duration-300 ${isSwitching ? 'opacity-80 scale-95 pointer-events-none' : 'opacity-100 scale-100'}`}
+            className={`flex-1 overflow-y-auto relative bg-white dark:bg-slate-900/50 scroll-smooth snap-container transition-colors duration-500 pb-24 transform transition-all duration-300 ${isSwitching ? 'opacity-80 scale-95 pointer-events-none' : 'opacity-100 scale-100'}`}
           >
             {openTabs.length === 0 ? (
                <div className="h-full flex items-center justify-center text-slate-400 flex-col gap-4 transition-colors duration-500">
