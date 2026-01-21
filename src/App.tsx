@@ -61,30 +61,10 @@ function AppContent() {
     setIsLoaded(true);
   }, []);
 
-  // Sync browser path with the active tab
-  useEffect(() => {
-    const path = `/${activeTabId}`;
-    try {
-      window.history.replaceState(null, '', path);
-    } catch (e) {
-      // no bloquear si falta history
-    }
-  }, [activeTabId]);
-
-  // On load, if the path contains a valid section, open it
-  useEffect(() => {
-    const p = window.location.pathname.replace(/^\//, '');
-    if (APPS.some(a => a.id === (p as TabId))) {
-      const id = p as TabId;
-      if (!openTabs.includes(id)) setOpenTabs(prev => [...prev, id]);
-      setActiveTabId(id);
-      // scroll to it after a short delay to allow refs to attach
-      setTimeout(() => {
-        const el = document.getElementById(`section-${id}`);
-        el?.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }, 150);
-    }
-  }, []);
+  // NOTE: URL synchronization and mount-time routing were removed.
+  // The decorative layout should not change the browser path (avoids
+  // hosting 404s on platforms like Vercel). Tab opening and scrolling
+  // remain local to the app state.
 
   // Scroll-spy: determine active section based on which section is closest to
   // the vertical center of the scroll container. This is more stable across
