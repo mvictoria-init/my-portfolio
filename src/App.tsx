@@ -155,10 +155,10 @@ function AppContent() {
       </div>
 
       {/* ÁREA PRINCIPAL */}
-      <div className={`relative z-14 h-full flex flex-col items-center justify-center p-3 md:p-5 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+      <div className={`relative z-14 h-full flex flex-col items-center justify-center p-3 md:p-5 max-[382px]:p-1 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
         
         {/* VENTANA DEL NAVEGADOR */}
-        <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[80vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
+        <div className="w-[98vw] md:w-[96vw] lg:w-[94vw] xl:w-[90vw] max-w-[1800px] h-[80vh] max-[382px]:h-[92vh] bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col border border-slate-300 dark:border-slate-700 ring-1 ring-slate-100 dark:ring-0 overflow-hidden relative transition-colors duration-500">
           
           {/* 1. BARRA SUPERIOR (pestañas y controles) */}
           <TopBar
