@@ -86,35 +86,58 @@ function AppContent() {
     }
   }, []);
 
-  // Observador de scroll (spy)
+  // Scroll-spy: determine active section based on which section is closest to
+  // the vertical center of the scroll container. This is more stable across
+  // viewport sizes than relying purely on IntersectionObserver thresholds.
   useEffect(() => {
-    const rootEl = scrollContainerRef.current;
-    if (!rootEl) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
-    // Use rootMargin and low threshold so sections become active reliably
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isManualScrolling) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const tabId = entry.target.id.replace('section-', '') as TabId;
-            // debug log for intersection
-            // eslint-disable-next-line no-console
-            console.debug('[APP] observer intersect ->', tabId);
-            setActiveTabId(tabId);
-          }
+    let ticking = false;
+
+    const computeActive = () => {
+      if (isManualScrolling) return;
+      const containerRect = container.getBoundingClientRect();
+      const containerCenter = containerRect.top + containerRect.height / 2;
+
+      let bestId: TabId | null = null;
+      let bestDist = Infinity;
+
+      APPS.forEach(app => {
+        const el = sectionsRef.current[app.id];
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - containerCenter);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestId = app.id;
+        }
+      });
+
+      if (bestId && bestId !== activeTabId) {
+        // eslint-disable-next-line no-console
+        console.debug('[APP] scroll-spy best ->', bestId, 'dist:', bestDist);
+        setActiveTabId(bestId);
+      }
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          computeActive();
+          ticking = false;
         });
-      },
-      { root: rootEl, rootMargin: '0px 0px -40% 0px', threshold: 0 }
-    );
+      }
+    };
 
-    APPS.forEach(app => {
-      const el = sectionsRef.current[app.id];
-      if (el) observer.observe(el);
-    });
+    // initial check
+    computeActive();
+    container.addEventListener('scroll', onScroll, { passive: true });
 
-    return () => observer.disconnect();
-  }, [openTabs, isManualScrolling, scrollContainerRef.current]);
+    return () => container.removeEventListener('scroll', onScroll);
+  }, [openTabs, isManualScrolling, activeTabId]);
 
 
   // Manejadores
