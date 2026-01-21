@@ -41,7 +41,7 @@ export default function App() {
 
 function AppContent() {
   const { theme, toggleTheme } = useTheme();
-  const { lang, setLang, t } = useTranslation();
+  const { lang, setLang } = useTranslation();
   
   // Estado de pestañas
   const [activeTabId, setActiveTabId] = useState<TabId>('home');
