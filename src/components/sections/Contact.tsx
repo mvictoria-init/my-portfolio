@@ -20,8 +20,8 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
       <div className="max-w-2xl mx-auto w-full bg-white dark:bg-slate-800 rounded-3xl shadow-2xl p-8 md:p-8 border border-slate-300 dark:border-slate-700 animate-fade-in-up relative">
         
         {/* Título y Subtítulo */}
-        <h2 className="text-4xl font-extrabold text-center text-purple-600 dark:text-purple-400 mb-4">{title}</h2>
-        <p className="text-center text-slate-700 dark:text-slate-300 mb-10 text-lg">{subtitle}</p>
+        <h2 className="text-4xl max-[322px]:text-3xl max-[284px]:text-2xl font-extrabold text-center text-purple-600 dark:text-purple-400 mb-4">{title}</h2>
+        <p className="text-center text-slate-700 dark:text-slate-300 mb-10 text-lg max-[322px]:text-base max-[284px]:text-sm">{subtitle}</p>
 
         <div className="space-y-6">
           
@@ -129,8 +129,8 @@ export const Contact: React.FC<SectionProps> = ({ data }) => {
           <div className="flex items-center p-4 bg-white dark:bg-slate-700 rounded-xl shadow-sm transition-colors duration-300">
             <Globe size={24} className="text-purple-500 mr-4 shrink-0" />
             <div className='flex flex-col items-start'>
-              <span className="text-sm font-semibold text-slate-600 dark:text-slate-400">{locationLabel}</span>
-              <span className="text-lg font-medium text-slate-900 dark:text-white">{contactData.location}</span>
+              <span className="text-sm max-[322px]:text-xs max-[284px]:text-[10px] font-semibold text-slate-600 dark:text-slate-400">{locationLabel}</span>
+              <span className="text-lg max-[322px]:text-sm max-[284px]:text-xs font-medium text-slate-900 dark:text-white">{contactData.location}</span>
             </div>
           </div>
           
